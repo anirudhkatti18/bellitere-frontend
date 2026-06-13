@@ -24,7 +24,7 @@ export default function MovieDetail() {
     };
 
     return (
-        <main className="min-h-screen bg-neutral-950 text-white p-6 md:p-12">
+        <main className="min-h-screen bg-neutral-950 text-white pt-24 md:pt-32 pb-12 px-6 md:px-12">
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
 
                 {/* Left Side: Video Player Container */}

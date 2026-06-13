@@ -12,10 +12,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className="bg-neutral-950 text-white font-sans antialiased">
                 <Navbar />
-                {/* We add pt-16 here so the content doesn't hide behind the fixed navbar */}
-                <div className="pt-16">
-                    {children}
-                </div>
+                {children}
             </body>
         </html>
     );
