@@ -126,8 +126,7 @@ const content = {
             classics: "Critically Acclaimed",
         },
         footer: {
-            text: "Bellitere is an investor-ready Next.js 15 & Spring Boot MVP, designed to bring transactional cinema access to Kannada films worldwide.",
-            rights: "© 2026 Bellitere. All rights reserved. Made in Bengaluru.",
+            rights: "© 2026 Bellitere. All rights reserved.",
         }
     },
     kn: {
@@ -145,8 +144,7 @@ const content = {
             classics: "ವಿಮರ್ಶಕರ ಮೆಚ್ಚುಗೆ",
         },
         footer: {
-            text: "ಬೆಳ್ಳಿತೆರೆಯು ಹೂಡಿಕೆದಾರರಿಗೆ ಪ್ರಸ್ತುತಪಡಿಸಲು ಸಿದ್ಧವಾಗಿರುವ ಒಂದು ಪ್ರದರ್ಶನ ವೇದಿಕೆಯಾಗಿದೆ (Next.js 15 ಮತ್ತು ಸ್ಪ್ರಿಂಗ್ ಬೂಟ್ ಆಧಾರಿತ).",
-            rights: "© 2026 ಬೆಳ್ಳಿತೆರೆ. ಎಲ್ಲ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ. ಬೆಂಗಳೂರಿನಲ್ಲಿ ನಿರ್ಮಿಸಲಾಗಿದೆ.",
+            rights: "© 2026 ಬೆಳ್ಳಿತೆರೆ. ಎಲ್ಲ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.",
         }
     }
 };
@@ -154,13 +152,6 @@ const content = {
 // Reusable Scrolling Carousel Row Component
 const CarouselRow = ({ title, movies, isLandscape = false }) => {
     const rowRef = useRef(null);
-    const [showLeftArrow, setShowLeftArrow] = useState(false);
-
-    const handleScroll = () => {
-        if (rowRef.current) {
-            setShowLeftArrow(rowRef.current.scrollLeft > 10);
-        }
-    };
 
     const scroll = (direction) => {
         if (rowRef.current) {
@@ -174,33 +165,36 @@ const CarouselRow = ({ title, movies, isLandscape = false }) => {
 
     return (
         <div className="relative group/row my-6">
-            {/* Category Title */}
-            <h2 className="text-lg md:text-xl font-extrabold tracking-widest text-neutral-200 mb-3 px-6 md:px-12 group-hover/row:text-white transition-colors duration-200">
-                {title}
-            </h2>
-            <div className="relative px-6 md:px-12">
-                {/* Left Arrow Button */}
-                {showLeftArrow && (
+            {/* Header Line with title and far-right navigation controls */}
+            <div className="flex justify-between items-center mb-4 px-6 md:px-12">
+                <div className="flex items-center">
+                    <span className="w-0.5 h-4 bg-white mr-2.5 inline-block align-middle -mt-0.5"></span>
+                    <h2 className="text-sm md:text-base font-extrabold uppercase tracking-widest text-neutral-200 group-hover/row:text-white transition-colors duration-200">
+                        {title}
+                    </h2>
+                </div>
+                <div className="flex items-center gap-1.5">
                     <button
                         onClick={() => scroll("left")}
-                        className="absolute left-2 md:left-6 top-[45%] -translate-y-1/2 z-20 bg-black/80 hover:bg-white hover:text-black border border-neutral-800 hover:border-white text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] cursor-pointer"
+                        className="w-7 h-7 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white flex items-center justify-center text-xs transition-colors duration-250 cursor-pointer"
                         aria-label="Scroll Left"
                     >
                         ❮
                     </button>
-                )}
-                {/* Right Arrow Button */}
-                <button
-                    onClick={() => scroll("right")}
-                    className="absolute right-2 md:right-6 top-[45%] -translate-y-1/2 z-20 bg-black/80 hover:bg-white hover:text-black border border-neutral-800 hover:border-white text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] cursor-pointer"
-                    aria-label="Scroll Right"
-                >
-                    ❯
-                </button>
+                    <button
+                        onClick={() => scroll("right")}
+                        className="w-7 h-7 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white flex items-center justify-center text-xs transition-colors duration-250 cursor-pointer"
+                        aria-label="Scroll Right"
+                    >
+                        ❯
+                    </button>
+                </div>
+            </div>
+
+            <div className="relative px-6 md:px-12">
                 {/* Horizontal Scrolling Area */}
                 <div
                     ref={rowRef}
-                    onScroll={handleScroll}
                     className="flex gap-2 overflow-x-auto scrollbar-hide py-4 px-2 -mx-2 scroll-smooth"
                 >
                     {movies.map((movie) => (
@@ -256,10 +250,10 @@ export default function LandingPage() {
 
                 {/* Language Switch floating overlay on top-right of page body */}
                 <div className="absolute top-24 right-6 md:right-12 z-20">
-                    <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-full p-1 shadow-2xl">
+                    <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-2xl">
                         <button
                             onClick={() => setLang("kn")}
-                            className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                            className={`px-4 py-1.5 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                                 lang === "kn"
                                     ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
                                     : "text-neutral-400 hover:text-white"
@@ -269,7 +263,7 @@ export default function LandingPage() {
                         </button>
                         <button
                             onClick={() => setLang("en")}
-                            className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                            className={`px-4 py-1.5 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                                 lang === "en"
                                     ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
                                     : "text-neutral-400 hover:text-white"
@@ -313,16 +307,16 @@ export default function LandingPage() {
                         <span className="text-neutral-350 font-bold bg-white/5 px-2 py-0.5 rounded border border-white/10">Dolby Atmos</span>
                     </div>
 
-                    {/* Hero Action Buttons - OTT Style */}
+                    {/* Hero Action Buttons - Sharp Edge OTT Style */}
                     <div className="flex gap-3 mt-2">
                         <Link href="/movies/1">
-                            <button className="bg-white hover:bg-neutral-200 text-black font-extrabold px-6 py-2 rounded text-xs md:text-sm transition-all duration-300 transform active:scale-95 cursor-pointer shadow-lg uppercase tracking-wider flex items-center gap-1.5">
+                            <button className="bg-white hover:bg-neutral-200 text-black font-extrabold px-6 py-2 rounded-sm text-xs md:text-sm transition-all duration-300 transform active:scale-95 cursor-pointer shadow-lg uppercase tracking-wider flex items-center gap-1.5">
                                 {t.hero.rentBtn}
                             </button>
                         </Link>
                         <button
                             onClick={() => setTrailerOpen(true)}
-                            className="bg-white/15 hover:bg-white/25 text-white font-extrabold px-6 py-2 rounded border border-white/10 backdrop-blur-md text-xs md:text-sm transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
+                            className="bg-white/10 hover:bg-white/20 text-white font-extrabold px-6 py-2 rounded-sm border border-white/10 backdrop-blur-md text-xs md:text-sm transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
                         >
                             {t.hero.trailerBtn}
                         </button>
@@ -339,29 +333,18 @@ export default function LandingPage() {
 
             {/* Premium Investor Guardrail & Platform Footer */}
             <footer className="relative z-10 border-t border-white/5 bg-[#020202]/70 backdrop-blur-xl px-6 md:px-12 py-10">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="flex flex-col items-center md:items-start gap-4">
-                        <div className="relative h-8 w-24">
-                            <Image
-                                src="/Bellitere.png"
-                                alt="Bellitere"
-                                fill
-                                className="object-contain"
-                            />
-                        </div>
-                        <p className="text-neutral-500 text-xs max-w-sm text-center md:text-left leading-relaxed">
-                            {t.footer.text}
-                        </p>
+                <div className="max-w-7xl mx-auto flex flex-col items-center justify-center gap-4 text-center">
+                    <div className="relative h-8 w-24">
+                        <Image
+                            src="/Bellitere.png"
+                            alt="Bellitere"
+                            fill
+                            className="object-contain"
+                        />
                     </div>
-
-                    <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-                        <p className="text-xs text-neutral-600 font-mono tracking-wider">
-                            🛡️ Next.js 15 (App) • Spring Boot • Razorpay • Mux HLS
-                        </p>
-                        <p className="text-xs text-neutral-500 tracking-wide mt-2">
-                            {t.footer.rights}
-                        </p>
-                    </div>
+                    <p className="text-neutral-500 text-xs mt-2">
+                        {t.footer.rights}
+                    </p>
                 </div>
             </footer>
 
@@ -369,7 +352,7 @@ export default function LandingPage() {
             {trailerOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
                     <div
-                        className="bg-[#050505]/95 border border-white/10 rounded-2xl w-full max-w-4xl p-2 relative shadow-2xl shadow-white/5 animate-scale-up"
+                        className="bg-[#050505]/95 border border-white/10 rounded-sm w-full max-w-4xl p-2 relative shadow-2xl shadow-white/5 animate-scale-up"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Close button */}

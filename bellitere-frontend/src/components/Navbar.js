@@ -64,12 +64,12 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
                     {/* Brand Logo Link */}
                     <Link href="/" className="flex items-center gap-2 group transition-transform duration-300 active:scale-95">
-                        <div className="relative h-9 w-28 md:h-10 md:w-32 flex items-center justify-center">
+                        <div className="relative h-10 w-36 md:h-12 md:w-44 flex items-center justify-center">
                             <Image
                                 src="/Bellitere.png"
                                 alt="Bellitere"
                                 fill
-                                sizes="(max-width: 768px) 112px, 128px"
+                                sizes="(max-width: 768px) 144px, 176px"
                                 className="object-contain filter brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] transition-transform duration-300 group-hover:scale-[1.02]"
                                 priority
                             />
@@ -102,7 +102,7 @@ export default function Navbar() {
 
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-105 active:scale-95 border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] cursor-pointer"
+                            className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
                         >
                             Sign In
                         </button>
@@ -112,7 +112,7 @@ export default function Navbar() {
                     <div className="flex md:hidden gap-3 items-center">
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-gradient-to-r from-neutral-200 to-neutral-100 hover:from-white hover:to-neutral-200 text-black px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all border border-white/20 shadow-md cursor-pointer"
+                            className="bg-gradient-to-r from-neutral-200 to-neutral-100 hover:from-white hover:to-neutral-200 text-black px-4 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-all border border-white/20 shadow-md cursor-pointer"
                         >
                             Sign In
                         </button>
@@ -167,7 +167,7 @@ export default function Navbar() {
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity duration-300">
                     <div
-                        className="bg-[#050505]/95 border border-white/10 rounded-2xl w-full max-w-md p-6 sm:p-8 relative shadow-2xl shadow-white/5 animate-scale-up overflow-hidden"
+                        className="bg-[#050505]/95 border border-white/10 rounded-sm w-full max-w-md p-6 sm:p-8 relative shadow-2xl shadow-white/5 animate-scale-up overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Decorative Gradient Background inside Card */}
@@ -182,7 +182,7 @@ export default function Navbar() {
                                 setPhone("");
                                 setOtp("");
                             }}
-                            className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors cursor-pointer w-8 h-8 rounded-full flex items-center justify-center bg-neutral-900/50 border border-neutral-800 hover:border-neutral-700"
+                            className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors cursor-pointer w-8 h-8 rounded-sm flex items-center justify-center bg-neutral-900/50 border border-neutral-800 hover:border-neutral-700"
                         >
                             ✕
                         </button>
@@ -220,12 +220,12 @@ export default function Navbar() {
                                             placeholder="Mobile Number"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                                            className="w-full bg-neutral-900/80 border border-neutral-800 rounded-xl pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all font-medium placeholder-neutral-600"
+                                            className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all font-medium placeholder-neutral-600"
                                         />
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 active:scale-98 text-black font-extrabold py-3 rounded-xl transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
+                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 active:scale-98 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
                                     >
                                         Send Verification Code
                                     </button>
@@ -239,11 +239,11 @@ export default function Navbar() {
                                         placeholder="••••••"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                                        className="w-full bg-neutral-900/80 border border-neutral-800 rounded-xl px-4 py-3 text-white tracking-[0.6em] text-center font-mono focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all text-lg"
+                                        className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm px-4 py-3 text-white tracking-[0.6em] text-center font-mono focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all text-lg"
                                     />
                                     <button
                                         type="submit"
-                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 text-black font-extrabold py-3 rounded-xl transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
+                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
                                     >
                                         Verify & Sign In
                                     </button>
