@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MovieCard from "@/components/MovieCard";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Mock Database of Kannada Films with extra details for carousels
 const mockCatalog = [
@@ -168,7 +169,7 @@ const CarouselRow = ({ title, movies, isLandscape = false }) => {
             {/* Header Line with title and far-right navigation controls */}
             <div className="flex justify-between items-center mb-4 px-6 md:px-12">
                 <div className="flex items-center">
-                    <span className="w-0.5 h-4 bg-white mr-2.5 inline-block align-middle -mt-0.5"></span>
+                    <span className="w-1 h-5 bg-white mr-2 inline-block"></span>
                     <h2 className="text-sm md:text-base font-extrabold uppercase tracking-widest text-neutral-200 group-hover/row:text-white transition-colors duration-200">
                         {title}
                     </h2>
@@ -216,7 +217,7 @@ const CarouselRow = ({ title, movies, isLandscape = false }) => {
 };
 
 export default function LandingPage() {
-    const [lang, setLang] = useState("kn"); // Default to Kannada ('kn')
+    const { lang } = useLanguage();
     const [trailerOpen, setTrailerOpen] = useState(false);
 
     const t = content[lang];
@@ -247,32 +248,6 @@ export default function LandingPage() {
 
                 {/* Volumetric Radial Glow for Silver Screen Effect */}
                 <div className="absolute top-[30%] left-[10%] w-[35rem] h-[35rem] rounded-full bg-white/5 blur-[120px] pointer-events-none z-1" />
-
-                {/* Language Switch floating overlay on top-right of page body */}
-                <div className="absolute top-24 right-6 md:right-12 z-20">
-                    <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-2xl">
-                        <button
-                            onClick={() => setLang("kn")}
-                            className={`px-4 py-1.5 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                                lang === "kn"
-                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                    : "text-neutral-400 hover:text-white"
-                            }`}
-                        >
-                            ಕನ್ನಡ
-                        </button>
-                        <button
-                            onClick={() => setLang("en")}
-                            className={`px-4 py-1.5 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                                lang === "en"
-                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                    : "text-neutral-400 hover:text-white"
-                            }`}
-                        >
-                            English
-                        </button>
-                    </div>
-                </div>
 
                 {/* Hero Content Area - aligned bottom-left */}
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-12 md:pb-16 flex flex-col items-start gap-4 md:gap-5">
@@ -334,12 +309,13 @@ export default function LandingPage() {
             {/* Premium Investor Guardrail & Platform Footer */}
             <footer className="relative z-10 border-t border-white/5 bg-[#020202]/70 backdrop-blur-xl px-6 md:px-12 py-10">
                 <div className="max-w-7xl mx-auto flex flex-col items-center justify-center gap-4 text-center">
-                    <div className="relative h-8 w-24">
+                    <div className="flex items-center justify-center">
                         <Image
                             src="/Bellitere.png"
                             alt="Bellitere"
-                            fill
-                            className="object-contain"
+                            width={300}
+                            height={300}
+                            className="object-contain w-24 sm:w-32 h-auto opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
                         />
                     </div>
                     <p className="text-neutral-500 text-xs mt-2">

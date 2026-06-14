@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -11,6 +12,7 @@ export default function Navbar() {
     const [step, setStep] = useState(1);
     const [phone, setPhone] = useState("");
     const [otp, setOtp] = useState("");
+    const { lang, setLang } = useLanguage();
 
     // Monitor scroll to handle transparent-to-opaque navbar transition
     useEffect(() => {
@@ -64,13 +66,13 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
                     {/* Brand Logo Link */}
                     <Link href="/" className="flex items-center gap-2 group transition-transform duration-300 active:scale-95">
-                        <div className="relative h-10 w-36 md:h-12 md:w-44 flex items-center justify-center">
+                        <div className="flex items-center justify-center">
                             <Image
                                 src="/Bellitere.png"
                                 alt="Bellitere"
-                                fill
-                                sizes="(max-width: 768px) 144px, 176px"
-                                className="object-contain filter brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] transition-transform duration-300 group-hover:scale-[1.02]"
+                                width={400}
+                                height={400}
+                                className="object-contain w-32 md:w-40 h-auto filter brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] transition-transform duration-300 group-hover:scale-[1.02]"
                                 priority
                             />
                         </div>
@@ -100,6 +102,29 @@ export default function Navbar() {
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
 
+                        <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 ml-2 shadow-sm">
+                            <button
+                                onClick={() => setLang("kn")}
+                                className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                                    lang === "kn"
+                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                        : "text-neutral-400 hover:text-white"
+                                }`}
+                            >
+                                ಕನ್ನಡ
+                            </button>
+                            <button
+                                onClick={() => setLang("en")}
+                                className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                                    lang === "en"
+                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                        : "text-neutral-400 hover:text-white"
+                                }`}
+                            >
+                                EN
+                            </button>
+                        </div>
+
                         <button
                             onClick={() => setIsOpen(true)}
                             className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
@@ -110,9 +135,32 @@ export default function Navbar() {
 
                     {/* Mobile Menu & Sign In Controls */}
                     <div className="flex md:hidden gap-3 items-center">
+                        <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-sm">
+                            <button
+                                onClick={() => setLang("kn")}
+                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                                    lang === "kn"
+                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                        : "text-neutral-400 hover:text-white"
+                                }`}
+                            >
+                                ಕನ್
+                            </button>
+                            <button
+                                onClick={() => setLang("en")}
+                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                                    lang === "en"
+                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                        : "text-neutral-400 hover:text-white"
+                                }`}
+                            >
+                                EN
+                            </button>
+                        </div>
+
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-gradient-to-r from-neutral-200 to-neutral-100 hover:from-white hover:to-neutral-200 text-black px-4 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-all border border-white/20 shadow-md cursor-pointer"
+                            className="bg-gradient-to-r from-neutral-200 to-neutral-100 hover:from-white hover:to-neutral-200 text-black px-3 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-wider transition-all border border-white/20 shadow-md cursor-pointer"
                         >
                             Sign In
                         </button>
@@ -189,12 +237,13 @@ export default function Navbar() {
 
                         <div className="relative z-10">
                             {/* Logo inside modal */}
-                            <div className="relative h-8 w-24 mb-6">
+                            <div className="flex items-center justify-center mb-6">
                                 <Image
                                     src="/Bellitere.png"
                                     alt="Bellitere"
-                                    fill
-                                    className="object-contain"
+                                    width={300}
+                                    height={300}
+                                    className="object-contain w-24 md:w-32 h-auto"
                                 />
                             </div>
 

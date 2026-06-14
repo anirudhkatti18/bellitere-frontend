@@ -1,6 +1,7 @@
 //Global styles, fonts, and root configuration
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata = {
     title: "Bellitere | Premium Kannada Cinema",
@@ -11,8 +12,10 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className="bg-neutral-950 text-white font-sans antialiased">
-                <Navbar />
-                {children}
+                <LanguageProvider>
+                    <Navbar />
+                    {children}
+                </LanguageProvider>
             </body>
         </html>
     );
