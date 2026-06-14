@@ -239,7 +239,7 @@ const content = {
             ]
         },
         howItWorks: {
-            badge: "ಪೇ-ಪರ್-ವ್ಯೂ ಮಾದರಿ",
+            badge: "ಪೇ-ಪರ್-ವಿ್ಯೂ ಮಾದರಿ",
             title: "ಬೆಳ್ಳಿತೆರೆ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ?",
             subtitle: "ಯಾವುದೇ ಮಾಸಿಕ ಬದ್ಧತೆಗಳಿಲ್ಲ. ನೀವು ವೀಕ್ಷಿಸಲು ಬಯಸುವ ಚಲನಚಿತ್ರಗಳಿಗೆ ಮಾತ್ರ ಪಾವತಿಸಿ.",
             steps: [
@@ -321,7 +321,7 @@ const CarouselRow = ({ title, movies }) => {
                 {showLeftArrow && (
                     <button
                         onClick={() => scroll("left")}
-                        className="absolute left-2 md:left-6 top-[45%] -translate-y-1/2 z-20 bg-black/80 hover:bg-amber-500 hover:text-black border border-neutral-800 hover:border-amber-400 text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl cursor-pointer"
+                        className="absolute left-2 md:left-6 top-[45%] -translate-y-1/2 z-20 bg-black/80 hover:bg-white hover:text-black border border-neutral-800 hover:border-white text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] cursor-pointer"
                         aria-label="Scroll Left"
                     >
                         ❮
@@ -330,7 +330,7 @@ const CarouselRow = ({ title, movies }) => {
                 {/* Right Arrow Button */}
                 <button
                     onClick={() => scroll("right")}
-                    className="absolute right-2 md:right-6 top-[45%] -translate-y-1/2 z-20 bg-black/80 hover:bg-amber-500 hover:text-black border border-neutral-800 hover:border-amber-400 text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl cursor-pointer"
+                    className="absolute right-2 md:right-6 top-[45%] -translate-y-1/2 z-20 bg-black/80 hover:bg-white hover:text-black border border-neutral-800 hover:border-white text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] cursor-pointer"
                     aria-label="Scroll Right"
                 >
                     ❯
@@ -369,7 +369,7 @@ export default function LandingPage() {
     };
 
     return (
-        <main className="relative min-h-screen bg-neutral-950 text-white flex flex-col overflow-hidden">
+        <main className="relative min-h-screen bg-[#050505] text-white flex flex-col overflow-hidden">
             
             {/* Cinematic Full-Screen Hero Backdrop Section */}
             <section className="relative w-full h-[100vh] flex flex-col justify-end bg-black">
@@ -380,21 +380,24 @@ export default function LandingPage() {
                         alt="Kantara Background"
                         fill
                         priority
-                        className="object-cover object-center scale-105 filter brightness-90 saturate-75"
+                        className="object-cover object-center scale-105 filter brightness-[0.85] saturate-[0.8]"
                     />
                     {/* Dark Vignette Overlays - blending details to support readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-black/60 z-1" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-transparent to-neutral-950/20 z-1" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/45 to-black/60 z-1" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-transparent to-[#050505]/25 z-1" />
                 </div>
+
+                {/* Volumetric Radial Glow for Silver Screen Effect */}
+                <div className="absolute top-[30%] left-[10%] w-[35rem] h-[35rem] rounded-full bg-white/5 blur-[120px] pointer-events-none z-1" />
 
                 {/* Language Switch floating overlay on top-right of page body */}
                 <div className="absolute top-24 right-6 md:right-12 z-20">
-                    <div className="flex items-center bg-black/60 backdrop-blur-md border border-neutral-800 rounded-full p-1 shadow-2xl">
+                    <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-full p-1 shadow-2xl">
                         <button
                             onClick={() => setLang("kn")}
                             className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                                 lang === "kn"
-                                    ? "bg-amber-500 text-neutral-950 shadow-md shadow-amber-500/10"
+                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
                                     : "text-neutral-400 hover:text-white"
                             }`}
                         >
@@ -404,7 +407,7 @@ export default function LandingPage() {
                             onClick={() => setLang("en")}
                             className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                                 lang === "en"
-                                    ? "bg-amber-500 text-neutral-950 shadow-md shadow-amber-500/10"
+                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
                                     : "text-neutral-400 hover:text-white"
                             }`}
                         >
@@ -416,8 +419,8 @@ export default function LandingPage() {
                 {/* Hero Content Area */}
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 md:pb-24 flex flex-col items-start gap-4 md:gap-5">
                     {/* Badge */}
-                    <span className="text-amber-500 text-[10px] md:text-xs font-black tracking-widest bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-full uppercase shadow-md shadow-amber-500/5 animate-fade-in">
-                        ⚡ {t.hero.badge}
+                    <span className="text-white text-[10px] md:text-xs font-black tracking-widest bg-white/5 border border-white/20 px-3 py-1.5 rounded-full uppercase shadow-md shadow-white/5 animate-fade-in flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> {t.hero.badge}
                     </span>
 
                     {/* Movie Title */}
@@ -431,7 +434,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Tagline */}
-                    <p className="text-amber-400/90 text-sm md:text-lg font-bold tracking-wider uppercase drop-shadow">
+                    <p className="bg-gradient-to-r from-neutral-100 via-neutral-350 to-neutral-500 bg-clip-text text-transparent text-sm md:text-lg font-extrabold tracking-wider uppercase drop-shadow">
                         {t.hero.tagline}
                     </p>
 
@@ -442,29 +445,29 @@ export default function LandingPage() {
 
                     {/* Metadata */}
                     <div className="flex flex-wrap gap-3 items-center text-xs md:text-sm font-semibold text-neutral-400 mt-1">
-                        <span className="border border-neutral-700 px-1.5 py-0.5 rounded text-[10px] text-neutral-300">
+                        <span className="border border-neutral-800 px-1.5 py-0.5 rounded text-[10px] text-neutral-300">
                             U/A 16+
                         </span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-700" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-800" />
                         <span>2h 30m</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-700" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-800" />
                         <span className="text-neutral-300">Coastal Folklore & Thriller</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-700" />
-                        <span className="text-amber-400 font-bold">Dolby Atmos</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-800" />
+                        <span className="text-white font-bold bg-white/10 px-2 py-0.5 rounded border border-white/20">Dolby Atmos</span>
                     </div>
 
                     {/* Hero Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
                         <Link href="/movies/1" className="w-full sm:w-auto">
-                            <button className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-neutral-950 font-black px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] text-base shadow-xl shadow-amber-500/10 uppercase tracking-wider cursor-pointer">
+                            <button className="w-full sm:w-auto bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black font-black px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] text-base shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] border border-white/40 uppercase tracking-wider cursor-pointer">
                                 {t.hero.rentBtn}
                             </button>
                         </Link>
                         <button
                             onClick={() => setTrailerOpen(true)}
-                            className="w-full sm:w-auto bg-black/60 hover:bg-neutral-900 border border-neutral-700 hover:border-white text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] text-base uppercase tracking-wider backdrop-blur-md cursor-pointer flex items-center justify-center gap-2"
+                            className="w-full sm:w-auto bg-black/60 hover:bg-neutral-900/60 border border-neutral-800 hover:border-white text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] text-base uppercase tracking-wider backdrop-blur-md cursor-pointer flex items-center justify-center gap-2"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-neutral-300" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                             </svg>
                             {t.hero.trailerBtn}
@@ -482,17 +485,20 @@ export default function LandingPage() {
             </section>
 
             {/* Movie Category Scrolling Sections Container */}
-            <section className="relative z-10 bg-neutral-950 -mt-1 py-8 flex flex-col">
+            <section className="relative z-10 bg-[#050505] -mt-1 py-8 flex flex-col">
                 <CarouselRow title={t.categories.trending} movies={trendingMovies} />
                 <CarouselRow title={t.categories.coastal} movies={coastalMovies} />
                 <CarouselRow title={t.categories.classics} movies={classicMovies} />
             </section>
 
             {/* Feature Highlights Showcase Grid */}
-            <section className="relative z-10 bg-neutral-950 border-t border-neutral-900/60 py-20 px-6 md:px-12">
-                <div className="max-w-7xl mx-auto flex flex-col items-center">
+            <section className="relative z-10 bg-[#050505] border-t border-neutral-900/60 py-20 px-6 md:px-12 overflow-hidden">
+                {/* Volumetric glow background effect */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-white/3 blur-[150px] pointer-events-none z-0" />
+
+                <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
                     <div className="text-center max-w-3xl mb-16 flex flex-col items-center gap-3">
-                        <span className="text-amber-500 text-[10px] md:text-xs font-black tracking-widest bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full uppercase">
+                        <span className="text-white text-[10px] md:text-xs font-black tracking-widest bg-white/5 border border-white/20 px-3 py-1 rounded-full uppercase">
                             {t.features.badge}
                         </span>
                         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-2">
@@ -508,10 +514,10 @@ export default function LandingPage() {
                         {t.features.cards.map((card, idx) => (
                             <div
                                 key={idx}
-                                className="bg-gradient-to-br from-neutral-900/80 to-neutral-950/90 border border-neutral-900 hover:border-neutral-800 rounded-2xl p-6 sm:p-8 flex gap-5 hover:bg-neutral-900/30 transition-all duration-300 hover:scale-[1.01]"
+                                className="bg-gradient-to-br from-neutral-900/40 to-neutral-950/60 border border-neutral-900 hover:border-white/10 rounded-2xl p-6 sm:p-8 flex gap-5 hover:bg-[#050505] hover:shadow-[0_0_25px_rgba(255,255,255,0.03)] transition-all duration-300 hover:scale-[1.01]"
                             >
                                 {/* Vector Icons */}
-                                <div className="flex-shrink-0 text-amber-500 mt-1 bg-amber-500/5 w-12 h-12 rounded-xl border border-amber-500/10 flex items-center justify-center">
+                                <div className="flex-shrink-0 text-white mt-1 bg-white/5 w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.05)]">
                                     {idx === 0 && (
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -544,10 +550,13 @@ export default function LandingPage() {
             </section>
 
             {/* How It Works - TVOD Rental Process */}
-            <section id="pricing" className="relative z-10 bg-neutral-950 border-t border-neutral-900/60 py-20 px-6 md:px-12">
-                <div className="max-w-7xl mx-auto flex flex-col items-center">
+            <section id="pricing" className="relative z-10 bg-[#050505] border-t border-neutral-900/60 py-20 px-6 md:px-12 overflow-hidden">
+                {/* Volumetric glow background effect */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[35rem] h-[35rem] rounded-full bg-white/2 blur-[140px] pointer-events-none z-0" />
+
+                <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
                     <div className="text-center max-w-3xl mb-16 flex flex-col items-center gap-3">
-                        <span className="text-amber-500 text-[10px] md:text-xs font-black tracking-widest bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full uppercase">
+                        <span className="text-white text-[10px] md:text-xs font-black tracking-widest bg-white/5 border border-white/20 px-3 py-1 rounded-full uppercase">
                             {t.howItWorks.badge}
                         </span>
                         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-2">
@@ -563,12 +572,12 @@ export default function LandingPage() {
                         {t.howItWorks.steps.map((step, idx) => (
                             <div
                                 key={idx}
-                                className="bg-neutral-900/40 border border-neutral-900 rounded-2xl p-8 flex flex-col gap-5 relative overflow-hidden group hover:border-amber-500/20 hover:bg-neutral-900/60 transition-all duration-300"
+                                className="bg-neutral-900/20 border border-neutral-900 rounded-2xl p-8 flex flex-col gap-5 relative overflow-hidden group hover:border-white/10 hover:bg-neutral-900/40 transition-all duration-300"
                             >
-                                <span className="text-5xl font-black text-amber-500/10 group-hover:text-amber-500/20 transition-colors duration-300 absolute right-4 top-2 select-none">
+                                <span className="text-5xl font-black text-white/5 group-hover:text-white/10 transition-colors duration-300 absolute right-4 top-2 select-none">
                                     {step.num}
                                 </span>
-                                <div className="text-2xl font-black text-amber-500 bg-amber-500/10 w-10 h-10 rounded-full flex items-center justify-center border border-amber-500/20 shadow-sm">
+                                <div className="text-2xl font-black text-white bg-white/5 w-10 h-10 rounded-full flex items-center justify-center border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
                                     {idx + 1}
                                 </div>
                                 <div>
@@ -582,10 +591,10 @@ export default function LandingPage() {
             </section>
 
             {/* Interactive FAQ Accordion Panel Section */}
-            <section id="faq" className="relative z-10 bg-neutral-950 border-t border-neutral-900/60 py-20 px-6 md:px-12">
+            <section id="faq" className="relative z-10 bg-[#050505] border-t border-neutral-900/60 py-20 px-6 md:px-12">
                 <div className="max-w-4xl mx-auto flex flex-col items-center">
                     <div className="text-center mb-16 flex flex-col items-center gap-3">
-                        <span className="text-amber-500 text-[10px] md:text-xs font-black tracking-widest bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full uppercase">
+                        <span className="text-white text-[10px] md:text-xs font-black tracking-widest bg-white/5 border border-white/20 px-3 py-1 rounded-full uppercase">
                             {t.faq.badge}
                         </span>
                         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-2">
@@ -600,14 +609,14 @@ export default function LandingPage() {
                             return (
                                 <div
                                     key={idx}
-                                    className="bg-neutral-900/50 border border-neutral-900 rounded-xl overflow-hidden hover:border-neutral-800 transition-colors"
+                                    className="bg-[#050505]/40 border border-neutral-900 rounded-xl overflow-hidden hover:border-white/10 transition-colors duration-300"
                                 >
                                     <button
                                         onClick={() => toggleFaq(idx)}
                                         className="w-full flex justify-between items-center px-6 py-5 text-left text-white focus:outline-none cursor-pointer"
                                     >
                                         <span className="text-base md:text-lg font-bold pr-4">{faqItem.q}</span>
-                                        <span className={`text-amber-500 text-xl font-black transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
+                                        <span className={`text-white text-xl font-black transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
                                             ＋
                                         </span>
                                     </button>
@@ -628,7 +637,7 @@ export default function LandingPage() {
             </section>
 
             {/* Premium Investor Guardrail & Platform Footer */}
-            <footer className="relative z-10 border-t border-neutral-900 bg-black/50 backdrop-blur-md px-6 md:px-12 py-12">
+            <footer className="relative z-10 border-t border-white/5 bg-[#020202]/70 backdrop-blur-xl px-6 md:px-12 py-12">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex flex-col items-center md:items-start gap-4">
                         <div className="relative h-8 w-24">
@@ -659,7 +668,7 @@ export default function LandingPage() {
             {trailerOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
                     <div
-                        className="bg-neutral-950 border border-neutral-800 rounded-2xl w-full max-w-4xl p-2 relative shadow-2xl animate-scale-up"
+                        className="bg-[#050505]/95 border border-white/10 rounded-2xl w-full max-w-4xl p-2 relative shadow-2xl shadow-white/5 animate-scale-up"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Close button */}

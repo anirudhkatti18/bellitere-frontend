@@ -57,8 +57,8 @@ export default function Navbar() {
             <nav
                 className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
                     isScrolled
-                        ? "bg-black/90 backdrop-blur-md border-b border-neutral-900/80 py-3.5 shadow-xl shadow-black/20"
-                        : "bg-gradient-to-b from-black/80 to-transparent border-b border-transparent py-5"
+                        ? "bg-[#050505]/75 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl shadow-black/50"
+                        : "bg-gradient-to-b from-black/90 via-black/40 to-transparent border-b border-transparent py-5"
                 }`}
             >
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
@@ -70,7 +70,7 @@ export default function Navbar() {
                                 alt="Bellitere"
                                 fill
                                 sizes="(max-width: 768px) 112px, 128px"
-                                className="object-contain filter brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:scale-[1.02]"
+                                className="object-contain filter brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] transition-transform duration-300 group-hover:scale-[1.02]"
                                 priority
                             />
                         </div>
@@ -83,26 +83,26 @@ export default function Navbar() {
                             className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
                         >
                             Catalog
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
                         <Link
                             href="/#pricing"
                             className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
                         >
                             Rentals
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
                         <Link
                             href="/#faq"
                             className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
                         >
                             FAQ
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
 
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-white hover:bg-amber-400 text-black px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md shadow-white/5 hover:shadow-amber-500/10 cursor-pointer"
+                            className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-105 active:scale-95 border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] cursor-pointer"
                         >
                             Sign In
                         </button>
@@ -112,14 +112,14 @@ export default function Navbar() {
                     <div className="flex md:hidden gap-3 items-center">
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-white hover:bg-neutral-200 text-black px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                            className="bg-gradient-to-r from-neutral-200 to-neutral-100 hover:from-white hover:to-neutral-200 text-black px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all border border-white/20 shadow-md cursor-pointer"
                         >
                             Sign In
                         </button>
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="text-white hover:text-amber-400 p-1.5 focus:outline-none transition-colors"
+                            className="text-white hover:text-neutral-300 p-1.5 focus:outline-none transition-colors"
                             aria-label="Toggle Mobile Menu"
                         >
                             {mobileMenuOpen ? (
@@ -137,7 +137,7 @@ export default function Navbar() {
 
                 {/* Mobile Dropdown Menu Drawer */}
                 {mobileMenuOpen && (
-                    <div className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg border-b border-neutral-900/90 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
+                    <div className="absolute top-full left-0 w-full bg-[#050505]/95 backdrop-blur-xl border-b border-white/10 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
                         <Link
                             href="/browse"
                             onClick={() => setMobileMenuOpen(false)}
@@ -167,12 +167,12 @@ export default function Navbar() {
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity duration-300">
                     <div
-                        className="bg-neutral-950 border border-neutral-800/80 rounded-2xl w-full max-w-md p-6 sm:p-8 relative shadow-2xl shadow-amber-500/5 animate-scale-up overflow-hidden"
+                        className="bg-[#050505]/95 border border-white/10 rounded-2xl w-full max-w-md p-6 sm:p-8 relative shadow-2xl shadow-white/5 animate-scale-up overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Decorative Gradient Background inside Card */}
-                        <div className="absolute -top-20 -left-20 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-                        <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-neutral-900 rounded-full blur-2xl pointer-events-none" />
+                        <div className="absolute -top-20 -left-20 w-48 h-48 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-neutral-900/40 rounded-full blur-2xl pointer-events-none" />
 
                         {/* Close button */}
                         <button
@@ -220,12 +220,12 @@ export default function Navbar() {
                                             placeholder="Mobile Number"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                                            className="w-full bg-neutral-900/80 border border-neutral-800 rounded-xl pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500/80 transition-all font-medium placeholder-neutral-600"
+                                            className="w-full bg-neutral-900/80 border border-neutral-800 rounded-xl pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all font-medium placeholder-neutral-600"
                                         />
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-amber-500 hover:bg-amber-600 active:scale-98 text-neutral-950 font-bold py-3 rounded-xl transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-amber-500/10"
+                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 active:scale-98 text-black font-extrabold py-3 rounded-xl transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
                                     >
                                         Send Verification Code
                                     </button>
@@ -239,18 +239,18 @@ export default function Navbar() {
                                         placeholder="••••••"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                                        className="w-full bg-neutral-900/80 border border-neutral-800 rounded-xl px-4 py-3 text-white tracking-[0.6em] text-center font-mono focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500/80 transition-all text-lg"
+                                        className="w-full bg-neutral-900/80 border border-neutral-800 rounded-xl px-4 py-3 text-white tracking-[0.6em] text-center font-mono focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all text-lg"
                                     />
                                     <button
                                         type="submit"
-                                        className="w-full bg-white hover:bg-amber-400 text-black hover:text-black font-bold py-3 rounded-xl transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer"
+                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 text-black font-extrabold py-3 rounded-xl transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
                                     >
                                         Verify & Sign In
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setStep(1)}
-                                        className="text-xs text-amber-500 hover:text-amber-400 font-semibold tracking-wide transition-colors mt-2 text-center"
+                                        className="text-xs text-neutral-400 hover:text-white font-semibold tracking-wide transition-colors mt-2 text-center underline"
                                     >
                                         Edit Phone Number
                                     </button>
