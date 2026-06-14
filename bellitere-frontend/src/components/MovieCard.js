@@ -1,93 +1,102 @@
 import Link from "next/link";
 
-export default function MovieCard({ movie }) {
-    // Generate a unique gradient for the card background to simulate distinct movie poster art styles
+export default function MovieCard({ movie, isLandscape = false }) {
+    // Generate distinct cover gradients to represent poster art
     const gradients = [
-        "from-neutral-900 via-neutral-950 to-neutral-900 border-t-2 border-t-neutral-500/20",
-        "from-neutral-950 via-neutral-900 to-neutral-955 border-t-2 border-t-neutral-600/20",
-        "from-neutral-900 via-neutral-900 to-neutral-950 border-t-2 border-t-neutral-400/20",
-        "from-neutral-955 via-neutral-955 to-neutral-900 border-t-2 border-t-neutral-300/20",
+        "from-neutral-900 via-neutral-950 to-neutral-900",
+        "from-neutral-955 via-neutral-900 to-neutral-950",
+        "from-neutral-900 via-neutral-905 to-neutral-950",
+        "from-neutral-950 via-neutral-950 to-neutral-900",
     ];
-    const borderGlow = "hover:border-white/40 hover:glow-silver-hover";
     const bgGradient = gradients[(movie.id || 0) % gradients.length];
 
+    // Mock release year and rating score
+    const ratingScore = (8.0 + ((movie.id * 3) % 19) * 0.1).toFixed(1);
+    const releaseYear = 2020 + (movie.id % 6);
+    const isTopTen = movie.id <= 2;
+
     return (
-        <Link href={`/movies/${movie.id}`} className="block h-full">
-            <div className={`group relative flex flex-col bg-[#050505] rounded-xl overflow-hidden border border-neutral-900/80 ${borderGlow} transition-all duration-300 cursor-pointer shadow-lg hover:shadow-black/60 h-full transform hover:scale-[1.03] hover:-translate-y-1`}>
+        <Link href={`/movies/${movie.id}`} className="block h-full group relative z-10 hover:z-20">
+            {/* Aspect container that breaks out on hover */}
+            <div className={`relative w-full h-full bg-neutral-950 rounded overflow-hidden border border-neutral-900/60 shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:z-50 group-hover:shadow-2xl group-hover:border-white/20 ${
+                isLandscape ? "aspect-video" : "aspect-[2/3]"
+            }`}>
+                
+                {/* Simulated Poster Art - Pure Image Display */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${bgGradient} flex flex-col justify-center items-center p-4 transition-transform duration-500 group-hover:scale-105`}>
+                    <div className="text-center">
+                        <h4 className="text-base sm:text-lg md:text-xl font-black italic tracking-tighter text-white/80 select-none line-clamp-2 px-1 uppercase font-sans">
+                            {movie.title}
+                        </h4>
+                        {movie.kannadaTitle && (
+                            <p className="text-[10px] sm:text-xs font-semibold text-neutral-500 mt-1 select-none">
+                                {movie.kannadaTitle}
+                            </p>
+                        )}
+                    </div>
+                </div>
 
-                {/* Poster Image Area */}
-                <div className="relative aspect-[2/3] w-full bg-neutral-900 overflow-hidden">
-                    {/* Simulated Film Poster Art with typography and gradient overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${bgGradient} flex flex-col justify-between p-4 group-hover:scale-105 transition-transform duration-500`}>
-                        {/* Film Roll Icon & Genre Tag */}
-                        <div className="flex justify-between items-center z-10">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 group-hover:text-neutral-300 transition-colors">
-                                {movie.genre || "Kannada Cinema"}
-                            </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-                            </svg>
-                        </div>
+                {/* Sleek Absolute-Positioned Badges (Top-Left corner) */}
+                <div className="absolute top-2 left-2 z-10 pointer-events-none">
+                    {isTopTen ? (
+                        <span className="bg-gradient-to-r from-red-650 to-red-800 text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-md uppercase tracking-wider border border-red-500/20">
+                            TOP 10
+                        </span>
+                    ) : (
+                        <span className="bg-black/70 backdrop-blur-md text-neutral-300 text-[8px] font-extrabold px-1.5 py-0.5 rounded shadow-md border border-white/10 uppercase tracking-widest">
+                            HD
+                        </span>
+                    )}
+                </div>
 
-                        {/* Title text overlaid in the center of the poster area for high recognition */}
-                        <div className="my-auto py-6 text-center z-10">
-                            <h4 className="text-xl md:text-2xl font-black tracking-tight text-white/90 group-hover:text-white group-hover:scale-105 transition-all duration-300 select-none line-clamp-2 px-1">
+                {/* Resting State Vignette Overlay */}
+                <div className="absolute inset-0 bg-black/10 pointer-events-none group-hover:bg-transparent transition-colors duration-300" />
+
+                {/* Centered Hover Play Icon */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                    <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-300 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-white to-neutral-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </div>
+                </div>
+
+                {/* Slide-Up Hover Overlay details with sharp bottom-heavy gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 flex flex-col justify-end p-3 z-10">
+                    <div className="flex flex-col gap-1.5">
+                        {/* Title inside hover overlay */}
+                        <div>
+                            <h3 className="text-xs sm:text-sm font-black text-white leading-tight line-clamp-1">
                                 {movie.title}
-                            </h4>
+                            </h3>
                             {movie.kannadaTitle && (
-                                <p className="text-sm font-medium text-neutral-400/90 group-hover:text-neutral-300 transition-colors mt-1">
+                                <p className="text-[9px] sm:text-[10px] font-semibold text-neutral-400">
                                     {movie.kannadaTitle}
                                 </p>
                             )}
                         </div>
 
-                        {/* Bottom Metadata Info */}
-                        <div className="flex justify-between items-center z-10">
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-black/60 text-neutral-400 border border-neutral-850">
-                                {movie.rating || "U/A 13+"}
+                        {/* Rating, Year and Duration */}
+                        <div className="flex items-center gap-2 text-[9px] font-extrabold text-neutral-300">
+                            <span className="text-white font-bold bg-white/10 px-1 py-0.2 rounded text-[8px] border border-white/15">
+                                ★ {ratingScore}
                             </span>
-                            <span className="text-[10px] font-bold text-neutral-500 tracking-wide">
-                                {movie.duration || "2h 15m"}
+                            <span>{releaseYear}</span>
+                            <span>{movie.duration || "2h 30m"}</span>
+                        </div>
+
+                        {/* Rent fee & Rental Info */}
+                        <div className="pt-1.5 border-t border-white/10 flex items-center justify-between text-[8px] text-neutral-400 font-semibold">
+                            <span className="text-white font-bold text-[9px]">
+                                ₹{movie.price}
+                            </span>
+                            <span className="uppercase tracking-wider">
+                                48h Rental
                             </span>
                         </div>
                     </div>
-
-                    {/* Poster shadow and vignette overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-5"></div>
-
-                    {/* Play Button Overlay - appears on hover */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-neutral-100 via-white to-neutral-200 text-black flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300 shadow-lg shadow-white/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    {/* Price Tag Badge */}
-                    <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/20 z-10 shadow-md">
-                        ₹{movie.price}
-                    </div>
                 </div>
 
-                {/* Metadata Section below the poster */}
-                <div className="p-4 flex flex-col flex-grow justify-between bg-gradient-to-b from-neutral-900/60 to-neutral-950/80 border-t border-neutral-900">
-                    <div>
-                        <h3 className="text-base font-bold text-white group-hover:text-neutral-200 transition-colors line-clamp-1">
-                            {movie.title}
-                        </h3>
-                        <p className="text-xs text-neutral-400 mt-1.5 line-clamp-2 leading-relaxed">
-                            {movie.description}
-                        </p>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-neutral-800/40 flex items-center justify-between text-[11px] font-bold text-neutral-500">
-                        <span className="uppercase tracking-wider">48h Stream Window</span>
-                        <span className="text-white/0 group-hover:text-white transition-all duration-300 flex items-center gap-1">
-                            WATCH NOW <span className="text-[8px]">▶</span>
-                        </span>
-                    </div>
-                </div>
             </div>
         </Link>
     );
