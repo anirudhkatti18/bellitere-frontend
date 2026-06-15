@@ -4,6 +4,17 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
+import MovieCard from "./MovieCard";
+
+// Simulated database for search
+const mockCatalog = [
+    { id: 1, title: "Kantara", kannadaTitle: "ಕಾಂತಾರ", description: "A fiery local deity clashes with a forestry officer in a coastal village.", price: "150.00" },
+    { id: 2, title: "KGF: Chapter 2", kannadaTitle: "ಕೆಜಿಎಫ್ 2", description: "The blood-soaked land of Kolar Gold Fields has a new overlord.", price: "200.00" },
+    { id: 3, title: "Ulidavaru Kandanthe", kannadaTitle: "ಉಳಿದವರು ಕಂಡಂತೆ", description: "A journalist pieces together the truth behind a murder.", price: "99.00" },
+    { id: 4, title: "Lucia", kannadaTitle: "ಲೂಸಿಯಾ", description: "An usher at a theater experiences a blurring of reality.", price: "120.00" },
+    { id: 5, title: "Rangitaranga", kannadaTitle: "ರಂಗಿತರಂಗ", description: "A novelist investigates mysterious occurrences.", price: "100.00" },
+    { id: 6, title: "Garuda Gamana", kannadaTitle: "ಗರುಡ ಗಮನ ವೃಷಭ ವಾಹನ", description: "Two childhood friends rise to power.", price: "150.00" }
+];
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -13,6 +24,16 @@ export default function Navbar() {
     const [phone, setPhone] = useState("");
     const [otp, setOtp] = useState("");
     const { lang, setLang } = useLanguage();
+
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredMovies = searchQuery.trim() !== ""
+        ? mockCatalog.filter(m =>
+            m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (m.kannadaTitle && m.kannadaTitle.includes(searchQuery))
+        )
+        : [];
 
     // Monitor scroll to handle transparent-to-opaque navbar transition
     useEffect(() => {
@@ -57,29 +78,26 @@ export default function Navbar() {
         <>
             {/* Global Navigation Bar */}
             <nav
-                className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
-                    isScrolled
-                        ? "bg-[#050505]/75 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl shadow-black/50"
-                        : "bg-gradient-to-b from-black/90 via-black/40 to-transparent border-b border-transparent py-5"
+                className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${isScrolled
+                    ? "bg-[#050505]/75 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl shadow-black/50"
+                    : "bg-gradient-to-b from-black/90 via-black/40 to-transparent border-b border-transparent py-5"
                 }`}
             >
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
                     {/* Brand Logo Link */}
-                    <Link href="/" className="flex items-center gap-2 group transition-transform duration-300 active:scale-95">
-                        <div className="flex items-center justify-center">
-                            <Image
-                                src="/Bellitere.png"
-                                alt="Bellitere"
-                                width={400}
-                                height={400}
-                                className="object-contain w-32 md:w-40 h-auto filter brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] transition-transform duration-300 group-hover:scale-[1.02]"
-                                priority
-                            />
-                        </div>
+                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer">
+                        <Image
+                            src="/Bellitere.png"
+                            alt="Bellitere"
+                            width={180}
+                            height={60}
+                            className="object-contain w-auto h-8 sm:h-10 lg:h-12 hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                            priority
+                        />
                     </Link>
 
-                    {/* Desktop Navigation Links */}
-                    <div className="hidden md:flex gap-8 items-center">
+                    {/* Desktop Menu & Controls */}
+                    <div className="hidden md:flex items-center gap-6">
                         <Link
                             href="/browse"
                             className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
@@ -102,57 +120,73 @@ export default function Navbar() {
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
 
-                        <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 ml-2 shadow-sm">
+                        <div className="flex items-center ml-2 gap-2">
+                            {/* Search Icon */}
                             <button
-                                onClick={() => setLang("kn")}
-                                className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                                    lang === "kn"
-                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                        : "text-neutral-400 hover:text-white"
-                                }`}
+                                onClick={() => setIsSearchOpen(true)}
+                                className="text-neutral-400 hover:text-white transition-colors p-1"
                             >
-                                ಕನ್ನಡ
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                             </button>
-                            <button
-                                onClick={() => setLang("en")}
-                                className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                                    lang === "en"
+
+                            <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-sm">
+                                <button
+                                    onClick={() => setLang("kn")}
+                                    className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "kn"
                                         ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
                                         : "text-neutral-400 hover:text-white"
-                                }`}
+                                        }`}
+                                >
+                                    ಕನ್ನಡ
+                                </button>
+                                <button
+                                    onClick={() => setLang("en")}
+                                    className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "en"
+                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                        : "text-neutral-400 hover:text-white"
+                                        }`}
+                                >
+                                    EN
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={() => setIsOpen(true)}
+                                className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
                             >
-                                EN
+                                Sign In
                             </button>
                         </div>
-
-                        <button
-                            onClick={() => setIsOpen(true)}
-                            className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
-                        >
-                            Sign In
-                        </button>
                     </div>
 
                     {/* Mobile Menu & Sign In Controls */}
                     <div className="flex md:hidden gap-3 items-center">
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="text-neutral-400 hover:text-white transition-colors p-1"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
                         <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-sm">
                             <button
                                 onClick={() => setLang("kn")}
-                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                                    lang === "kn"
-                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                        : "text-neutral-400 hover:text-white"
-                                }`}
+                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "kn"
+                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                    : "text-neutral-400 hover:text-white"
+                                    }`}
                             >
                                 ಕನ್
                             </button>
                             <button
                                 onClick={() => setLang("en")}
-                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                                    lang === "en"
-                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                        : "text-neutral-400 hover:text-white"
-                                }`}
+                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "en"
+                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                    : "text-neutral-400 hover:text-white"
+                                    }`}
                             >
                                 EN
                             </button>
@@ -242,19 +276,21 @@ export default function Navbar() {
                                     src="/Bellitere.png"
                                     alt="Bellitere"
                                     width={300}
-                                    height={300}
-                                    className="object-contain w-24 md:w-32 h-auto"
+                                    height={100}
+                                    className="object-contain w-auto h-12"
                                 />
                             </div>
 
-                            <h2 className="text-2xl font-bold text-white tracking-wide mb-1">
-                                {step === 1 ? "Welcome Back" : "Security Verification"}
-                            </h2>
-                            <p className="text-xs text-neutral-400 mb-6">
-                                {step === 1
-                                    ? "Enter your mobile number to sign in or create an account instantly."
-                                    : `Enter the 6-digit confirmation code sent to +91 ${phone}`}
-                            </p>
+                            <div className="text-center mb-8">
+                                <h2 className="text-2xl font-black text-white tracking-tighter uppercase">
+                                    {step === 1 ? "Welcome Back" : "Verify Number"}
+                                </h2>
+                                <p className="text-sm text-neutral-400 mt-2 font-medium">
+                                    {step === 1
+                                        ? "Enter your mobile number to sign in or create an account."
+                                        : `We sent a 6-digit code to +91 ${phone}`}
+                                </p>
+                            </div>
 
                             {step === 1 ? (
                                 <form onSubmit={handleSendOTP} className="flex flex-col gap-4">
@@ -309,6 +345,47 @@ export default function Navbar() {
                             <p className="text-[10px] text-neutral-500 mt-6 leading-relaxed text-center">
                                 By signing in, you agree to our Terms of Service. Standard messaging and data rates may apply.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Global Search Overlay */}
+            {isSearchOpen && (
+                <div className="fixed inset-0 z-[100] bg-[#050505]/95 backdrop-blur-2xl flex flex-col items-center pt-24 px-6 md:px-12 transition-all">
+                    <button
+                        onClick={() => { setIsSearchOpen(false); setSearchQuery(""); }}
+                        className="absolute top-8 right-8 text-neutral-500 hover:text-white text-3xl font-light transition-colors"
+                    >
+                        ✕
+                    </button>
+
+                    <div className="w-full max-w-4xl flex flex-col gap-12">
+                        {/* Search Input */}
+                        <input
+                            autoFocus
+                            type="text"
+                            placeholder="Search movies, genres, or actors..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-transparent text-4xl md:text-6xl font-black tracking-tighter text-white placeholder-neutral-700 outline-none border-b-2 border-white/10 focus:border-white pb-4 transition-colors rounded-none"
+                        />
+
+                        {/* Search Results */}
+                        <div className="w-full">
+                            {searchQuery.trim() !== "" ? (
+                                filteredMovies.length > 0 ? (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 animate-fade-in">
+                                        {filteredMovies.map(movie => (
+                                            <div key={`search-${movie.id}`} onClick={() => setIsSearchOpen(false)}>
+                                                <MovieCard movie={movie} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-neutral-500 text-lg font-bold tracking-widest uppercase">No results found.</p>
+                                )
+                            ) : null}
                         </div>
                     </div>
                 </div>
