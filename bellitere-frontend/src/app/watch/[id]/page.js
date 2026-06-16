@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { getMovieById } from "@/lib/catalog";
 
 export default function WatchPage() {
     const params = useParams();
-    const id = params?.id || 1;
+    const id = params?.id ? Number(params.id) : 1;
+    const movie = getMovieById(id) || getMovieById(1);
     const [isControlsVisible, setIsControlsVisible] = useState(true);
 
     // Handle mouse movement to show/hide controls
@@ -43,15 +45,26 @@ export default function WatchPage() {
             {/* Simulated Mux/HLS Player Container */}
             <div className="relative w-full h-full md:w-[95vw] md:h-[95vh] bg-[#050505] flex items-center justify-center border border-white/5 shadow-[0_0_100px_rgba(0,0,0,1)]">
                 
-                {/* HTML5 Video Simulation Placeholder */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40">
-                    <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center mb-6">
-                        <svg className="w-10 h-10 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
+                {/* Real HTML5 Video Stream */}
+                {movie.trailer ? (
+                    <video 
+                        src={movie.trailer}
+                        autoPlay
+                        loop
+                        controls={false} // custom controls are overlayed
+                        className="w-full h-full object-contain z-0"
+                    />
+                ) : (
+                    /* HTML5 Video Simulation Placeholder */
+                    <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40 z-0">
+                        <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center mb-6">
+                            <svg className="w-10 h-10 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                        <span className="text-white/50 text-[10px] font-mono uppercase tracking-[0.4em]">HLS Stream Encrypted</span>
                     </div>
-                    <span className="text-white/50 text-[10px] font-mono uppercase tracking-[0.4em]">HLS Stream Encrypted</span>
-                </div>
+                )}
 
                 {/* Anti-Piracy Watermark Overlay */}
                 <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-10">

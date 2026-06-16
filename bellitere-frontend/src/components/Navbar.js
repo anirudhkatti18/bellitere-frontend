@@ -6,15 +6,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import MovieCard from "./MovieCard";
 
-// Simulated database for search
-const mockCatalog = [
-    { id: 1, title: "Kantara", kannadaTitle: "ಕಾಂತಾರ", description: "A fiery local deity clashes with a forestry officer in a coastal village.", price: "150.00" },
-    { id: 2, title: "KGF: Chapter 2", kannadaTitle: "ಕೆಜಿಎಫ್ 2", description: "The blood-soaked land of Kolar Gold Fields has a new overlord.", price: "200.00" },
-    { id: 3, title: "Ulidavaru Kandanthe", kannadaTitle: "ಉಳಿದವರು ಕಂಡಂತೆ", description: "A journalist pieces together the truth behind a murder.", price: "99.00" },
-    { id: 4, title: "Lucia", kannadaTitle: "ಲೂಸಿಯಾ", description: "An usher at a theater experiences a blurring of reality.", price: "120.00" },
-    { id: 5, title: "Rangitaranga", kannadaTitle: "ರಂಗಿತರಂಗ", description: "A novelist investigates mysterious occurrences.", price: "100.00" },
-    { id: 6, title: "Garuda Gamana", kannadaTitle: "ಗರುಡ ಗಮನ ವೃಷಭ ವಾಹನ", description: "Two childhood friends rise to power.", price: "150.00" }
-];
+import { mockCatalog } from "@/lib/catalog";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -77,114 +69,71 @@ export default function Navbar() {
     return (
         <>
             {/* Global Navigation Bar */}
-            <nav
-                className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${isScrolled
-                    ? "bg-[#050505]/75 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl shadow-black/50"
-                    : "bg-gradient-to-b from-black/90 via-black/40 to-transparent border-b border-transparent py-5"
-                }`}
-            >
-                <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-                    {/* Brand Logo Link */}
+            <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 py-4 transition-all duration-300">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative">
+                    {/* Brand Logo Link (Far Left) */}
                     <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer">
                         <Image
                             src="/Bellitere.png"
                             alt="Bellitere"
-                            width={180}
-                            height={60}
-                            className="object-contain w-auto h-8 sm:h-10 lg:h-12 hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                            width={240}
+                            height={80}
+                            className="object-contain w-auto h-12 sm:h-14 lg:h-16 -my-4 hover:scale-105 transition-transform duration-300 drop-shadow-md"
                             priority
                         />
                     </Link>
 
-                    {/* Desktop Menu & Controls */}
-                    <div className="hidden md:flex items-center gap-6">
-                        <Link
-                            href="/browse"
-                            className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
-                        >
-                            Catalog
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
-                        </Link>
-                        <Link
-                            href="/#pricing"
-                            className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
-                        >
-                            Rentals
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
-                        </Link>
-                        <Link
-                            href="/#faq"
-                            className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 relative group py-1"
-                        >
-                            FAQ
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-neutral-300 via-neutral-100 to-neutral-400 transition-all duration-300 group-hover:w-full"></span>
-                        </Link>
-
-                        <div className="flex items-center ml-2 gap-2">
-                            {/* Search Icon */}
-                            <button
-                                onClick={() => setIsSearchOpen(true)}
-                                className="text-neutral-400 hover:text-white transition-colors p-1"
+                    {/* Desktop Navigation & Controls (Right Aligned) */}
+                    <div className="hidden md:flex items-center gap-5">
+                        <div className="flex items-center gap-6 mr-2">
+                            <Link
+                                href="/"
+                                className="flex items-center gap-2 text-sm font-bold tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 py-1"
                             >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </button>
-
-                            <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-sm">
-                                <button
-                                    onClick={() => setLang("kn")}
-                                    className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "kn"
-                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                        : "text-neutral-400 hover:text-white"
-                                        }`}
-                                >
-                                    ಕನ್ನಡ
-                                </button>
-                                <button
-                                    onClick={() => setLang("en")}
-                                    className={`px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "en"
-                                        ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
-                                        : "text-neutral-400 hover:text-white"
-                                        }`}
-                                >
-                                    EN
-                                </button>
-                            </div>
-
-                            <button
-                                onClick={() => setIsOpen(true)}
-                                className="bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:via-neutral-100 hover:to-neutral-200 text-black px-6 py-2 rounded-sm text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                                Home
+                            </Link>
+                            <Link
+                                href="/browse"
+                                className="flex items-center gap-2 text-sm font-bold tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 py-1"
                             >
-                                Sign In
-                            </button>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                                API
+                            </Link>
+                            <Link
+                                href="/browse"
+                                className="flex items-center gap-2 text-sm font-bold tracking-wide text-neutral-300 hover:text-white transition-colors duration-200 py-1"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                                Browse
+                            </Link>
                         </div>
-                    </div>
 
-                    {/* Mobile Menu & Sign In Controls */}
-                    <div className="flex md:hidden gap-3 items-center">
+                        {/* Search Icon */}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-neutral-400 hover:text-white transition-colors p-1"
+                            className="text-neutral-300 hover:text-white transition-colors p-1 hover:scale-110 transform"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </button>
-                        <div className="flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-sm p-0.5 shadow-sm">
+
+                        {/* Language Toggle */}
+                        <div className="flex items-center bg-black/40 backdrop-blur-md border border-white/10 rounded-full p-0.5 shadow-sm">
                             <button
                                 onClick={() => setLang("kn")}
-                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "kn"
-                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "kn"
+                                    ? "bg-white text-black shadow-md"
                                     : "text-neutral-400 hover:text-white"
                                     }`}
                             >
-                                ಕನ್
+                                ಕನ್ನಡ
                             </button>
                             <button
                                 onClick={() => setLang("en")}
-                                className={`px-2 py-1 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "en"
-                                    ? "bg-gradient-to-r from-neutral-200 to-neutral-100 text-black shadow-md shadow-white/10"
+                                className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "en"
+                                    ? "bg-white text-black shadow-md"
                                     : "text-neutral-400 hover:text-white"
                                     }`}
                             >
@@ -192,24 +141,41 @@ export default function Navbar() {
                             </button>
                         </div>
 
+                        {/* Sign In Button */}
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-gradient-to-r from-neutral-200 to-neutral-100 hover:from-white hover:to-neutral-200 text-black px-3 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-wider transition-all border border-white/20 shadow-md cursor-pointer"
+                            className="bg-white hover:bg-neutral-200 text-black px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 cursor-pointer"
                         >
                             Sign In
                         </button>
+                    </div>
 
+                    {/* Mobile Menu Controls */}
+                    <div className="flex md:hidden gap-3 items-center">
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="text-neutral-300 hover:text-white transition-colors p-1"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                        <button
+                            onClick={() => setIsOpen(true)}
+                            className="bg-white text-black px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
+                        >
+                            Sign In
+                        </button>
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="text-white hover:text-neutral-300 p-1.5 focus:outline-none transition-colors"
-                            aria-label="Toggle Mobile Menu"
                         >
                             {mobileMenuOpen ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
                             )}
@@ -219,28 +185,23 @@ export default function Navbar() {
 
                 {/* Mobile Dropdown Menu Drawer */}
                 {mobileMenuOpen && (
-                    <div className="absolute top-full left-0 w-full bg-[#050505]/95 backdrop-blur-xl border-b border-white/10 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
-                        <Link
-                            href="/browse"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors"
-                        >
-                            Browse Catalog
+                    <div className="absolute top-full left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/10 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
+                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
+                            Home
                         </Link>
-                        <Link
-                            href="/#pricing"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors"
-                        >
-                            Rentals & Pricing
+                        <Link href="/browse" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
+                            Catalog
                         </Link>
-                        <Link
-                            href="/#faq"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors"
-                        >
-                            Frequently Asked Questions
+                        <Link href="/browse" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
+                            Browse
                         </Link>
+                        {/* Mobile Language Toggle */}
+                        <div className="flex items-center gap-2 mt-2">
+                            <span className="text-sm font-medium text-neutral-500">Language:</span>
+                            <button onClick={() => setLang("kn")} className={`px-2 py-1 rounded text-xs font-bold ${lang === "kn" ? "text-white" : "text-neutral-500"}`}>ಕನ್ನಡ</button>
+                            <span className="text-neutral-700">|</span>
+                            <button onClick={() => setLang("en")} className={`px-2 py-1 rounded text-xs font-bold ${lang === "en" ? "text-white" : "text-neutral-500"}`}>English</button>
+                        </div>
                     </div>
                 )}
             </nav>

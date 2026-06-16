@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className="bg-neutral-950 text-white font-sans antialiased">
+            <body className="bg-[#0a0a0a] text-white font-sans antialiased">
                 <LanguageProvider>
                     <Navbar />
                     {children}

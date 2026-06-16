@@ -2,45 +2,7 @@
 "use client";
 import MovieCard from "@/components/MovieCard";
 
-// Simulated database response
-const mockCatalog = [
-    {
-        id: 1,
-        title: "Kantara",
-        description: "A fiery local deity clashes with a forestry officer in a coastal village.",
-        price: "150.00",
-    },
-    {
-        id: 2,
-        title: "KGF: Chapter 2",
-        description: "The blood-soaked land of Kolar Gold Fields has a new overlord.",
-        price: "200.00",
-    },
-    {
-        id: 3,
-        title: "Ulidavaru Kandanthe",
-        description: "A journalist pieces together the truth behind a murder during a coastal festival.",
-        price: "99.00",
-    },
-    {
-        id: 4,
-        title: "Lucia",
-        description: "An usher at a theater experiences a blurring of reality and dreams.",
-        price: "120.00",
-    },
-    {
-        id: 5,
-        title: "Rangitaranga",
-        description: "A novelist investigates mysterious occurrences in his ancestral village.",
-        price: "100.00",
-    },
-    {
-        id: 6,
-        title: "Garuda Gamana Vrishabha Vahana",
-        description: "Two childhood friends rise to power in the underworld of Mangaluru.",
-        price: "150.00",
-    }
-];
+import { mockCatalog } from "@/lib/catalog";
 
 export default function BrowsePage() {
     return (

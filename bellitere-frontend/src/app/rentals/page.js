@@ -5,13 +5,13 @@ import MovieCard from "@/components/MovieCard";
 // Mock Active Rentals
 const mockRentals = [
     { id: 1, title: "Kantara", kannadaTitle: "ಕಾಂತಾರ", expiresIn: "42h" },
-    { id: 3, title: "Ulidavaru Kandanthe", kannadaTitle: "ಉಳಿದವರು ಕಂಡಂತೆ", expiresIn: "12h" }
+    { id: 3, title: "Sapta Sagaradaache Ello", kannadaTitle: "ಸಪ್ತ ಸಾಗರದಾಚೆ ಎಲ್ಲೋ", expiresIn: "12h" }
 ];
 
 // Mock Watchlist
 const mockWatchlist = [
     { id: 4, title: "Lucia", kannadaTitle: "ಲೂಸಿಯಾ", price: "120.00" },
-    { id: 5, title: "Rangitaranga", kannadaTitle: "ರಂಗಿತರಂಗ", price: "100.00" },
+    { id: 5, title: "Charlie 777", kannadaTitle: "ಚಾರ್ಲಿ 777", price: "150.00" },
     { id: 7, title: "Mufti", kannadaTitle: "ಮಫ್ತಿ", price: "110.00" },
     { id: 8, title: "Tagaru", kannadaTitle: "ಟಗರು", price: "130.00" },
     { id: 9, title: "Dia", kannadaTitle: "ದಿಯಾ", price: "99.00" }
