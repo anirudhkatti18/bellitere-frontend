@@ -74,7 +74,7 @@ export default function Navbar() {
                     {/* Brand Logo Link (Far Left) */}
                     <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer">
                         <Image
-                            src="/Bellitere.png"
+                            src="/bellitere-frontend/Bellitere.png"
                             alt="Bellitere"
                             width={240}
                             height={80}
@@ -234,7 +234,7 @@ export default function Navbar() {
                             {/* Logo inside modal */}
                             <div className="flex items-center justify-center mb-6">
                                 <Image
-                                    src="/Bellitere.png"
+                                    src="/bellitere-frontend/Bellitere.png"
                                     alt="Bellitere"
                                     width={300}
                                     height={100}

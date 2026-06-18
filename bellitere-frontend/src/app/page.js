@@ -61,7 +61,7 @@ export default function Home() {
                 {/* Simulated Video/Image Background */}
                 <div className="absolute inset-0 w-full h-full z-0">
                     <img 
-                        src="/hero-bg.png" 
+                        src="/bellitere-frontend/hero-bg.png" 
                         alt="Hero Background" 
                         className="w-full h-full object-cover object-top scale-105 animate-[pulse_10s_ease-in-out_infinite] opacity-80"
                     />
@@ -122,7 +122,7 @@ export default function Home() {
             <footer className="w-full border-t border-white/5 py-12 bg-[#050505]">
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-start items-start gap-4">
                     <div className="flex items-center gap-2 opacity-90">
-                        <Image src="/Bellitere.png" alt="Bellitere" width={160} height={50} className="object-contain w-auto h-8 -my-2" />
+                        <Image src="/bellitere-frontend/Bellitere.png" alt="Bellitere" width={160} height={50} className="object-contain w-auto h-8 -my-2" />
                     </div>
                     <p className="text-xs font-medium text-neutral-500 whitespace-pre-line leading-relaxed">
                         {t.footer.rights}
