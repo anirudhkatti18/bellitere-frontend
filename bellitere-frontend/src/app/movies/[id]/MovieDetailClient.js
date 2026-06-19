@@ -46,9 +46,9 @@ export default function MovieDetail() {
     };
 
     return (
-        <main className="min-h-screen bg-[#050505] text-white">
+        <main className="min-h-screen bg-[#08080c] text-white">
             {/* The Immersive Hero Section */}
-            <section className="relative w-full h-[85vh] min-h-[600px] bg-[#050505] overflow-hidden">
+            <section className="relative w-full h-[85vh] min-h-[600px] bg-[#08080c] overflow-hidden">
                 {/* Background Media */}
                 <video 
                     autoPlay 
@@ -60,8 +60,8 @@ export default function MovieDetail() {
                 />
                 
                 {/* Dual Gradients for Text Legibility & Fade Out */}
-                <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#050505] via-[#050505]/70 to-transparent" />
-                <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+                <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#08080c] via-[#08080c]/70 to-transparent" />
+                <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#08080c] via-transparent to-transparent" />
 
                 {/* The Overlay Content (Left-Aligned) */}
                 <div className="relative z-10 flex flex-col justify-end h-full pb-20 px-8 lg:px-16 max-w-5xl">

@@ -6,7 +6,7 @@ import { mockCatalog } from "@/lib/catalog";
 
 export default function BrowsePage() {
     return (
-        <main className="min-h-screen bg-neutral-950 text-white pt-24 pb-12 px-6 md:px-12">
+        <main className="min-h-screen bg-[#08080c] text-white pt-24 pb-12 px-6 md:px-12">
             <div className="max-w-7xl mx-auto flex flex-col space-y-8">
 
                 {/* Header Section */}

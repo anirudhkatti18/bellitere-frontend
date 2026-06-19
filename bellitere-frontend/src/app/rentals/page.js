@@ -19,7 +19,7 @@ const mockWatchlist = [
 
 export default function RentalsPage() {
     return (
-        <main className="min-h-screen bg-[#050505] text-white pt-32 pb-24 px-6 md:px-12">
+        <main className="min-h-screen bg-[#08080c] text-white pt-32 pb-24 px-6 md:px-12">
             <div className="max-w-7xl mx-auto flex flex-col gap-16">
 
                 {/* Active Rentals Section */}

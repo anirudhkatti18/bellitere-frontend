@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="kn">
-            <body className="bg-[#0a0a0a] text-white font-sans antialiased flex flex-col min-h-screen">
+            <body className="bg-[#08080c] text-white font-sans antialiased flex flex-col min-h-screen">
                 <LanguageProvider>
                     <Navbar />
                     <div className="flex-grow">

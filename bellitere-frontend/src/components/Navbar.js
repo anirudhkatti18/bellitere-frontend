@@ -170,7 +170,7 @@ export default function Navbar() {
 
                 {/* Mobile Dropdown Menu Drawer */}
                 {mobileMenuOpen && (
-                    <div className="absolute top-full left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/10 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
+                    <div className="absolute top-full left-0 w-full bg-[#08080c]/95 backdrop-blur-xl border-b border-white/10 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
                         <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
                             Home
                         </Link>
@@ -188,7 +188,7 @@ export default function Navbar() {
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity duration-300">
                     <div
-                        className="bg-[#050505]/95 border border-white/10 rounded-sm w-full max-w-md p-6 sm:p-8 relative shadow-2xl shadow-white/5 animate-scale-up overflow-hidden"
+                        className="bg-[#08080c]/95 border border-white/10 rounded-sm w-full max-w-md p-6 sm:p-8 relative shadow-2xl shadow-white/5 animate-scale-up overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Decorative Gradient Background inside Card */}
