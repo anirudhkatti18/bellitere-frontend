@@ -72,7 +72,7 @@ export default function Home() {
                 <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     {/* Left Column (The Text & Actions Zone) */}
                     <div className="flex flex-col gap-4 text-left justify-center">
-                        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl mb-2">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tighter drop-shadow-2xl mb-2">
                             {activeMovie.title}
                         </h1>
 
@@ -107,13 +107,13 @@ export default function Home() {
                     </div>
 
                     {/* Right Column (The Uncropped Poster Zone) */}
-                    <div className="hidden md:flex justify-end items-center h-full max-h-[500px] relative w-full pr-4">
+                    <div className="flex justify-center md:justify-end items-center h-full max-h-[500px] relative w-full md:pr-4 order-first md:order-last">
                         {heroMovies.map((movie, index) => (
                             <img 
                                 key={movie.id}
                                 src={movie.poster} 
                                 alt={movie.title} 
-                                className={`rounded-xl shadow-2xl border border-white/10 h-[450px] w-auto object-contain transition-all duration-1000 ease-in-out ${
+                                className={`rounded-xl shadow-2xl border border-white/10 h-[280px] sm:h-[350px] md:h-[450px] w-auto mx-auto object-contain transition-all duration-1000 ease-in-out ${
                                     index === currentSlide ? "opacity-100 scale-100 relative" : "opacity-0 scale-95 absolute pointer-events-none"
                                 }`}
                             />
@@ -176,7 +176,7 @@ function CarouselRow({ title, items }) {
             {/* Horizontally Scrollable Container */}
             <div
                 ref={scrollRef}
-                className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-8 pt-4 -mt-4 px-1"
+                className="flex overflow-x-scroll scrollbar-hide gap-4 px-4 md:px-0 pb-8 pt-4 -mt-4"
                 style={{ scrollSnapType: "x mandatory" }}
             >
                 {items.map((movie) => (

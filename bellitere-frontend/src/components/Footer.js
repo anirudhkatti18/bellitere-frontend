@@ -11,7 +11,7 @@ export default function Footer() {
                         alt="ಬೆಳ್ಳಿತ್ತೆರೆ" 
                         width={180} 
                         height={60} 
-                        className="object-contain w-auto h-10" 
+                        className="object-contain w-auto h-10 w-10 md:h-12 md:w-12 p-0 m-0" 
                     />
                     <span className="text-white font-semibold text-xl">ಬೆಳ್ಳಿತ್ತೆರೆ</span>
                 </div>

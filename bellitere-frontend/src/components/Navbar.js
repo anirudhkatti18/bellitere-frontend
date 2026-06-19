@@ -99,16 +99,16 @@ export default function Navbar() {
     return (
         <>
             {/* Global Navigation Bar */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 py-4 transition-all duration-300">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative">
+            <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 py-3 transition-all duration-300">
+                <div className="max-w-7xl mx-auto px-4 md:px-16 flex justify-between items-center relative">
                     {/* Brand Logo Link (Far Left) */}
-                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer">
+                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer p-0 m-0">
                         <Image
                             src="/bellitere-frontend/Bellitere.png"
                             alt="Bellitere"
                             width={240}
                             height={80}
-                            className="object-contain w-auto h-12 sm:h-14 lg:h-16 -my-4 hover:scale-105 transition-transform duration-300 drop-shadow-md"
+                            className="object-contain w-auto h-9 w-9 md:h-10 md:w-10 hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
                             priority
                         />
                     </Link>
@@ -147,7 +147,7 @@ export default function Navbar() {
                         </button>
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-white text-black px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
+                            className="bg-white text-black px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap"
                         >
                             ಸೈನ್ ಇನ್ / SIGN IN
                         </button>

@@ -81,7 +81,7 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                 <h3 className="text-sm font-semibold text-white leading-tight line-clamp-1 group-hover:text-blue-400 transition-colors">
                     {movieDetails.title}
                 </h3>
-                <div className="flex items-center gap-2 text-xs font-medium text-gray-400">
+                <div className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-gray-400">
                     <span className="text-blue-400 font-bold">★ {ratingScore}</span>
                     <span>•</span>
                     <span>{releaseYear}</span>

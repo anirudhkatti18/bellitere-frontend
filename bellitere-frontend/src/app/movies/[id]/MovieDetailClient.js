@@ -46,7 +46,7 @@ export default function MovieDetail() {
     };
 
     return (
-        <main className="min-h-screen bg-[#08080c] text-white">
+        <main className="min-h-screen bg-[#08080c] text-white pt-20 md:pt-28">
             {/* The Immersive Hero Section */}
             <section className="relative w-full h-[85vh] min-h-[600px] bg-[#08080c] overflow-hidden">
                 {/* Background Media */}
@@ -64,49 +64,56 @@ export default function MovieDetail() {
                 <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#08080c] via-transparent to-transparent" />
 
                 {/* The Overlay Content (Left-Aligned) */}
-                <div className="relative z-10 flex flex-col justify-end h-full pb-20 px-8 lg:px-16 max-w-5xl">
-                    <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tighter drop-shadow-2xl">
-                        {lang === "kn" ? movie.kannadaTitle : movie.title}
-                    </h1>
-                    
-                    <div className="flex items-center gap-3 text-gray-300 font-medium mb-6 text-sm md:text-base drop-shadow-md">
-                        <span className="text-blue-400 font-bold">★ {movie.rating}</span>
-                        <span>•</span>
-                        <span>{movie.year}</span>
-                        <span>•</span>
-                        <span>{movie.duration}</span>
-                        <span>•</span>
-                        <span>{movie.genre}</span>
-                    </div>
+                <div className="relative z-10 flex flex-col md:flex-row gap-6 md:gap-12 justify-end items-start md:items-end h-full pb-20 px-8 lg:px-16 max-w-5xl">
+                    <img 
+                        src={movie.poster} 
+                        alt={movie.title}
+                        className="w-32 sm:w-40 md:w-48 rounded-lg shadow-2xl border border-white/10 shrink-0" 
+                    />
+                    <div className="flex flex-col">
+                        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tighter drop-shadow-2xl">
+                            {lang === "kn" ? movie.kannadaTitle : movie.title}
+                        </h1>
+                        
+                        <div className="flex items-center gap-3 text-gray-300 font-medium mb-6 text-sm md:text-base drop-shadow-md">
+                            <span className="text-blue-400 font-bold">★ {movie.rating}</span>
+                            <span>•</span>
+                            <span>{movie.year}</span>
+                            <span>•</span>
+                            <span>{movie.duration}</span>
+                            <span>•</span>
+                            <span>{movie.genre}</span>
+                        </div>
 
-                    <p className="max-w-2xl text-base md:text-lg text-gray-200 mb-8 leading-relaxed animate-fade-in drop-shadow-md">
-                        {movie.description}
-                    </p>
+                        <p className="max-w-2xl text-base md:text-lg text-gray-200 mb-8 leading-relaxed animate-fade-in drop-shadow-md">
+                            {movie.description}
+                        </p>
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-wrap items-center gap-4">
-                        {!isPurchased ? (
-                            <button 
-                                onClick={handleRentClick}
-                                className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-                            >
-                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                                Rent • ₹{movie.price}
+                        {/* Action Buttons */}
+                        <div className="flex flex-wrap gap-3 mt-4">
+                            {!isPurchased ? (
+                                <button 
+                                    onClick={handleRentClick}
+                                    className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                                >
+                                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                                    Rent • ₹{movie.price}
+                                </button>
+                            ) : (
+                                <button 
+                                    onClick={() => router.push(`/watch/${movie.id}`)}
+                                    className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                                >
+                                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                                    ಪ್ಲೇ ಮಾಡಿ
+                                </button>
+                            )}
+
+                            <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-3 hover:bg-white/20 transition-all cursor-pointer font-medium">
+                                <span className="text-xl leading-none">+</span>
+                                <span className="hidden sm:inline">ವೀಕ್ಷಣಾ ಪಟ್ಟಿ</span>
                             </button>
-                        ) : (
-                            <button 
-                                onClick={() => router.push(`/watch/${movie.id}`)}
-                                className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-                            >
-                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                                ಪ್ಲೇ ಮಾಡಿ
-                            </button>
-                        )}
-
-                        <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-3 hover:bg-white/20 transition-all cursor-pointer font-medium">
-                            <span className="text-xl leading-none">+</span>
-                            <span className="hidden sm:inline">ವೀಕ್ಷಣಾ ಪಟ್ಟಿ</span>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </section>
