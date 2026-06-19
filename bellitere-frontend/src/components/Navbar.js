@@ -102,15 +102,16 @@ export default function Navbar() {
             <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 py-3 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 md:px-16 flex justify-between items-center relative">
                     {/* Brand Logo Link (Far Left) */}
-                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer p-0 m-0">
+                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer p-0 m-0 flex items-center gap-2">
                         <Image
                             src="/bellitere-frontend/Bellitere.png"
                             alt="Bellitere"
                             width={240}
                             height={80}
-                            className="object-contain w-auto h-9 w-9 md:h-10 md:w-10 hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
+                            className="object-contain w-auto h-9 w-9 md:h-14 md:w-14 hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
                             priority
                         />
+                        <span className="text-white font-bold text-lg md:text-2xl tracking-wide">ಬೆಳ್ಳಿತೆರೆ</span>
                     </Link>
 
                     {/* Desktop Navigation & Controls (Right Aligned) */}
