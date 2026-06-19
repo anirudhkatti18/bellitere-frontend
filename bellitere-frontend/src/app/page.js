@@ -61,40 +61,22 @@ export default function Home() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % 5);
-        }, 5000);
+        }, 8000);
         return () => clearInterval(interval);
     }, []);
 
     return (
         <div className="min-h-screen bg-[#08080c] text-white selection:bg-blue-500/30">
             {/* The Immersive Homepage Hero Carousel */}
-            <header className="relative h-[55vh] sm:h-[70vh] md:h-[85vh] w-full overflow-hidden bg-[#08080c] flex items-center">
-                {/* Auto-rotating Background Posters */}
-                <div className="absolute inset-0 w-full h-full z-0 bg-[#08080c]">
-                    {heroMovies.map((movie, index) => (
-                        <img 
-                            key={movie.id}
-                            src={movie.poster} 
-                            alt={movie.title} 
-                            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
-                                index === currentSlide ? "opacity-70 scale-100" : "opacity-0 scale-105"
-                            }`}
-                        />
-                    ))}
-                    
-                    {/* Layered CSS Gradient Masks */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#08080c]/90 via-[#08080c]/40 to-transparent z-[1]" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080c] via-transparent to-transparent z-[2]" />
-                </div>
-
-                {/* Localized Content Overlay */}
-                <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 flex flex-col justify-center h-full pt-16">
-                    <div className="max-w-2xl animate-fade-in-up">
-                        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl mb-4">
+            <header className="w-full bg-[#08080c] pt-24 pb-16 px-6 md:px-16 flex items-center justify-center min-h-[70vh] mb-8">
+                <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    {/* Left Column (The Text & Actions Zone) */}
+                    <div className="flex flex-col gap-4 text-left justify-center">
+                        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl mb-2">
                             {activeMovie.title}
                         </h1>
 
-                        <div className="flex items-center gap-3 text-gray-300 font-bold mb-6 text-sm md:text-base drop-shadow-md">
+                        <div className="flex items-center gap-3 text-gray-300 font-bold mb-2 text-sm md:text-base drop-shadow-md">
                             <span className="text-blue-400">★ {activeMovie.rating}</span>
                             <span>•</span>
                             <span>{activeMovie.year}</span>
@@ -104,7 +86,7 @@ export default function Home() {
                             <span>{activeMovie.genre}</span>
                         </div>
 
-                        <p className="text-base md:text-lg text-gray-300 font-medium leading-relaxed mb-8 drop-shadow-md max-w-xl line-clamp-3">
+                        <p className="text-base md:text-lg text-gray-300 font-medium leading-relaxed mb-4 drop-shadow-md max-w-xl line-clamp-3">
                             {activeMovie.description}
                         </p>
 
@@ -122,6 +104,20 @@ export default function Home() {
                                 ⓘ ಹೆಚ್ಚಿನ ಮಾಹಿತಿ
                             </Link>
                         </div>
+                    </div>
+
+                    {/* Right Column (The Uncropped Poster Zone) */}
+                    <div className="hidden md:flex justify-end items-center h-full max-h-[500px] relative w-full pr-4">
+                        {heroMovies.map((movie, index) => (
+                            <img 
+                                key={movie.id}
+                                src={movie.poster} 
+                                alt={movie.title} 
+                                className={`rounded-xl shadow-2xl border border-white/10 h-[450px] w-auto object-contain transition-all duration-1000 ease-in-out ${
+                                    index === currentSlide ? "opacity-100 scale-100 relative" : "opacity-0 scale-95 absolute pointer-events-none"
+                                }`}
+                            />
+                        ))}
                     </div>
                 </div>
             </header>
