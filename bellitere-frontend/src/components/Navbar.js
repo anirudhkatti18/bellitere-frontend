@@ -291,30 +291,41 @@ export default function Navbar() {
 
             {/* Global Search Overlay */}
             {isSearchOpen && (
-                <div className="fixed inset-0 z-[100] bg-[#050505]/95 backdrop-blur-2xl flex flex-col items-center pt-24 px-6 md:px-12 transition-all">
-                    <button
-                        onClick={() => { setIsSearchOpen(false); setSearchQuery(""); }}
-                        className="absolute top-8 right-8 text-neutral-500 hover:text-white text-3xl font-light transition-colors"
-                    >
-                        ✕
-                    </button>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md">
+                    <div className="w-full max-w-2xl px-6 flex flex-col gap-4 relative">
+                        {/* Header Row */}
+                        <div className="flex items-center justify-between w-full">
+                            <span className="text-white text-2xl font-bold">ಹುಡುಕಿ</span>
+                            <button
+                                onClick={() => { setIsSearchOpen(false); setSearchQuery(""); }}
+                                className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
 
-                    <div className="w-full max-w-4xl flex flex-col gap-12">
-                        {/* Search Input */}
-                        <input
-                            autoFocus
-                            type="text"
-                            placeholder="ಚಲನಚಿತ್ರಗಳು, ಪ್ರಕಾರಗಳು ಅಥವಾ ನಟರನ್ನು ಹುಡುಕಿ..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-transparent text-4xl md:text-6xl font-black tracking-tighter text-white placeholder-neutral-700 outline-none border-b-2 border-white/10 focus:border-white pb-4 transition-colors rounded-none"
-                        />
+                        {/* Search Input Container */}
+                        <div className="relative flex items-center w-full bg-[#111] border border-white/10 rounded-xl focus-within:border-white/30 transition-all">
+                            <svg className="absolute left-4 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <input
+                                autoFocus
+                                type="text"
+                                placeholder="ಹುಡುಕಲು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full bg-transparent pl-12 pr-4 py-4 text-white text-lg placeholder-gray-500 outline-none"
+                            />
+                        </div>
 
                         {/* Search Results */}
-                        <div className="w-full">
+                        <div className="w-full max-h-[400px] overflow-y-auto pr-1">
                             {searchQuery.trim() !== "" ? (
                                 filteredMovies.length > 0 ? (
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 animate-fade-in">
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 animate-fade-in pt-2">
                                         {filteredMovies.map(movie => (
                                             <div key={`search-${movie.id}`} onClick={() => setIsSearchOpen(false)}>
                                                 <MovieCard movie={movie} />
@@ -322,7 +333,7 @@ export default function Navbar() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-neutral-500 text-lg font-bold tracking-widest uppercase">No results found.</p>
+                                    <p className="text-neutral-500 text-sm font-bold tracking-widest uppercase py-4">ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ.</p>
                                 )
                             ) : null}
                         </div>
