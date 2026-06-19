@@ -38,7 +38,7 @@ export default function WatchPage() {
                     href={`/movies/${id}`}
                     className="inline-flex items-center gap-3 text-neutral-300 hover:text-white font-extrabold text-xs tracking-widest uppercase transition-colors drop-shadow-md"
                 >
-                    <span className="text-xl leading-none -mt-0.5">←</span> Back to Details
+                    <span className="text-xl leading-none -mt-0.5">←</span> ವಿವರಗಳಿಗೆ ಹಿಂತಿರುಗಿ
                 </Link>
             </div>
 
@@ -62,7 +62,7 @@ export default function WatchPage() {
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                         </div>
-                        <span className="text-white/50 text-[10px] font-mono uppercase tracking-[0.4em]">HLS Stream Encrypted</span>
+                        <span className="text-white/50 text-[10px] font-mono uppercase tracking-[0.4em]">ಎಚ್‌ಎಲ್‌ಎಸ್ ಸ್ಟ್ರೀಮ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗಿದೆ</span>
                     </div>
                 )}
 

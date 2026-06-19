@@ -99,21 +99,13 @@ export default function MovieDetail() {
                                 className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                             >
                                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                                Play Now
+                                ಪ್ಲೇ ಮಾಡಿ
                             </button>
                         )}
 
                         <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-3 hover:bg-white/20 transition-all cursor-pointer font-medium">
                             <span className="text-xl leading-none">+</span>
-                            <span className="hidden sm:inline">Watchlist</span>
-                        </button>
-                        <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-3 hover:bg-white/20 transition-all cursor-pointer font-medium">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            <span className="hidden sm:inline">Download</span>
-                        </button>
-                        <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-3 hover:bg-white/20 transition-all cursor-pointer font-medium">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                            <span className="hidden sm:inline">Similars</span>
+                            <span className="hidden sm:inline">ವೀಕ್ಷಣಾ ಪಟ್ಟಿ</span>
                         </button>
                     </div>
                 </div>
@@ -124,7 +116,7 @@ export default function MovieDetail() {
                 {/* Actors Section */}
                 <div>
                     <h2 className="text-xl md:text-2xl font-bold mb-6 text-white tracking-wide border-l-4 border-blue-500 pl-3 uppercase">
-                        Actors
+                        ಕಲಾವಿದರು
                     </h2>
                     <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar">
                         {movieActors.map(actor => (
@@ -142,7 +134,7 @@ export default function MovieDetail() {
                 {/* You may like Section */}
                 <div>
                     <h2 className="text-xl md:text-2xl font-bold mb-6 text-white tracking-wide border-l-4 border-blue-500 pl-3 uppercase">
-                        You may like
+                        ನೀವು ಇಷ್ಟಪಡಬಹುದು
                     </h2>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
                         {movieRecommendations.map(recMovie => (
@@ -158,13 +150,13 @@ export default function MovieDetail() {
                     <div className="bg-neutral-900 border border-white/10 rounded-xl w-full max-w-md p-6 relative shadow-2xl overflow-hidden text-center">
                         {paymentStatus === "idle" && (
                             <>
-                                <h3 className="text-xl font-bold text-white mb-4">Complete Payment</h3>
+                                <h3 className="text-xl font-bold text-white mb-4">ಪಾವತಿ ಪೂರ್ಣಗೊಳಿಸಿ / Complete Payment</h3>
                                 <div className="bg-black/50 p-4 rounded-lg mb-6 border border-white/5">
-                                    <p className="text-neutral-400 mb-2">Item</p>
+                                    <p className="text-neutral-400 mb-2">ಅಂಶ / Item</p>
                                     <p className="text-white font-semibold text-lg">{movie.title} - 48h Rental</p>
                                     <div className="w-full h-px bg-white/10 my-4"></div>
                                     <div className="flex justify-between items-center text-xl font-bold">
-                                        <span>Total</span>
+                                        <span>ಒಟ್ಟು / Total</span>
                                         <span>₹{movie.price}</span>
                                     </div>
                                 </div>
@@ -172,13 +164,13 @@ export default function MovieDetail() {
                                     onClick={processPayment}
                                     className="w-full bg-[#3399cc] hover:bg-[#2b88b7] text-white font-bold py-3 rounded-sm transition-colors uppercase tracking-widest shadow-lg shadow-[#3399cc]/20"
                                 >
-                                    Pay via Razorpay
+                                    ರೇಜರ್‌ಪೇ ಮೂಲಕ ಪಾವತಿಸಿ / Pay via Razorpay
                                 </button>
                                 <button 
                                     onClick={() => setIsCheckoutOpen(false)}
                                     className="mt-4 text-neutral-500 hover:text-white transition-colors text-sm font-semibold uppercase tracking-widest"
                                 >
-                                    Cancel
+                                    ರದ್ದುಗೊಳಿಸಿ / Cancel
                                 </button>
                             </>
                         )}
@@ -186,8 +178,8 @@ export default function MovieDetail() {
                         {paymentStatus === "processing" && (
                             <div className="flex flex-col items-center justify-center py-8">
                                 <div className="w-12 h-12 border-4 border-white/20 border-t-[#3399cc] rounded-full animate-spin mb-6"></div>
-                                <h3 className="text-lg font-bold text-white tracking-widest uppercase">Processing Payment</h3>
-                                <p className="text-neutral-400 text-sm mt-2">Please do not close this window.</p>
+                                <h3 className="text-lg font-bold text-white tracking-widest uppercase">ಪಾವತಿ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿದೆ / Processing Payment</h3>
+                                <p className="text-neutral-400 text-sm mt-2">ದಯವಿಟ್ಟು ಈ ವಿಂಡೋವನ್ನು ಮುಚ್ಚಬೇಡಿ. / Please do not close this window.</p>
                             </div>
                         )}
 
@@ -196,8 +188,8 @@ export default function MovieDetail() {
                                 <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mb-6 border border-emerald-500/50">
                                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                                 </div>
-                                <h3 className="text-xl font-bold text-white tracking-widest uppercase mb-2">Payment Successful!</h3>
-                                <p className="text-emerald-400 text-sm font-medium">Rental activated. Starting player...</p>
+                                <h3 className="text-xl font-bold text-white tracking-widest uppercase mb-2">ಪಾವತಿ ಯಶಸ್ವಿಯಾಗಿದೆ! / Payment Successful!</h3>
+                                <p className="text-emerald-400 text-sm font-medium">ಬಾಡಿಗೆ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ. ಪ್ಲೇಯರ್ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ... / Rental activated. Starting player...</p>
                             </div>
                         )}
                     </div>

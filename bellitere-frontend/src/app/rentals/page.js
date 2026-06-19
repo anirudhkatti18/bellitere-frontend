@@ -26,7 +26,7 @@ export default function RentalsPage() {
                 <section>
                     <div className="flex items-center mb-8">
                         <span className="w-1 h-8 bg-white mr-4 inline-block shadow-[0_0_10px_rgba(255,255,255,0.5)]"></span>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white">My Rentals</h1>
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white">ನನ್ನ ಬಾಡಿಗೆಗಳು</h1>
                     </div>
 
                     {mockRentals.length > 0 ? (
@@ -39,7 +39,7 @@ export default function RentalsPage() {
                         </div>
                     ) : (
                         <div className="bg-white/5 border border-white/10 p-12 rounded-sm text-center">
-                            <p className="text-neutral-500 font-bold uppercase tracking-widest">No Active Rentals</p>
+                            <p className="text-neutral-500 font-bold uppercase tracking-widest">ಯಾವುದೇ ಸಕ್ರಿಯ ಬಾಡಿಗೆಗಳಿಲ್ಲ</p>
                         </div>
                     )}
                 </section>
@@ -48,7 +48,7 @@ export default function RentalsPage() {
                 <section>
                     <div className="flex items-center mb-8">
                         <span className="w-1 h-6 bg-neutral-600 mr-4 inline-block"></span>
-                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-neutral-300 uppercase">Saved for Later</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-neutral-300 uppercase">ನಂತರ ವೀಕ್ಷಿಸಲು ಉಳಿಸಲಾಗಿದೆ</h2>
                     </div>
 
                     <div className="w-full overflow-x-auto pb-8 hide-scrollbar">

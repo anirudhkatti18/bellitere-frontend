@@ -4,22 +4,11 @@ import { createContext, useContext, useState, useEffect } from "react";
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-    const [lang, setLang] = useState("kn");
-
-    useEffect(() => {
-        const storedLang = localStorage.getItem("bellitere_lang");
-        if (storedLang) {
-            setLang(storedLang);
-        }
-    }, []);
-
-    const handleSetLang = (newLang) => {
-        setLang(newLang);
-        localStorage.setItem("bellitere_lang", newLang);
-    };
+    const lang = "kn";
+    const setLang = () => {};
 
     return (
-        <LanguageContext.Provider value={{ lang, setLang: handleSetLang }}>
+        <LanguageContext.Provider value={{ lang, setLang }}>
             {children}
         </LanguageContext.Provider>
     );

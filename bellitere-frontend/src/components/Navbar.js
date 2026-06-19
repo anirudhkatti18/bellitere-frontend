@@ -44,6 +44,36 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Intercept Escape key and browser back button when search is open
+    useEffect(() => {
+        if (!isSearchOpen) return;
+
+        window.history.pushState({ searchOpen: true }, "");
+
+        const handlePopState = (e) => {
+            setIsSearchOpen(false);
+            setSearchQuery("");
+        };
+
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape") {
+                setIsSearchOpen(false);
+                setSearchQuery("");
+            }
+        };
+
+        window.addEventListener("popstate", handlePopState);
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("popstate", handlePopState);
+            window.removeEventListener("keydown", handleKeyDown);
+            if (window.history.state?.searchOpen) {
+                window.history.back();
+            }
+        };
+    }, [isSearchOpen]);
+
     const handleSendOTP = (e) => {
         e.preventDefault();
         if (phone.trim().length >= 10) {
@@ -96,34 +126,12 @@ export default function Navbar() {
                             </svg>
                         </button>
 
-                        {/* Language Toggle */}
-                        <div className="flex items-center bg-black/40 backdrop-blur-md border border-white/10 rounded-full p-0.5 shadow-sm">
-                            <button
-                                onClick={() => setLang("kn")}
-                                className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "kn"
-                                    ? "bg-white text-black shadow-md"
-                                    : "text-neutral-400 hover:text-white"
-                                    }`}
-                            >
-                                ಕನ್ನಡ
-                            </button>
-                            <button
-                                onClick={() => setLang("en")}
-                                className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${lang === "en"
-                                    ? "bg-white text-black shadow-md"
-                                    : "text-neutral-400 hover:text-white"
-                                    }`}
-                            >
-                                EN
-                            </button>
-                        </div>
-
                         {/* Sign In Button */}
                         <button
                             onClick={() => setIsOpen(true)}
                             className="bg-white hover:bg-neutral-200 text-black px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 cursor-pointer"
                         >
-                            Sign In
+                            ಸೈನ್ ಇನ್ / SIGN IN
                         </button>
                     </div>
 
@@ -141,7 +149,7 @@ export default function Navbar() {
                             onClick={() => setIsOpen(true)}
                             className="bg-white text-black px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
                         >
-                            Sign In
+                            ಸೈನ್ ಇನ್ / SIGN IN
                         </button>
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -172,13 +180,6 @@ export default function Navbar() {
                         <Link href="/browse" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
                             Browse
                         </Link>
-                        {/* Mobile Language Toggle */}
-                        <div className="flex items-center gap-2 mt-2">
-                            <span className="text-sm font-medium text-neutral-500">Language:</span>
-                            <button onClick={() => setLang("kn")} className={`px-2 py-1 rounded text-xs font-bold ${lang === "kn" ? "text-white" : "text-neutral-500"}`}>ಕನ್ನಡ</button>
-                            <span className="text-neutral-700">|</span>
-                            <button onClick={() => setLang("en")} className={`px-2 py-1 rounded text-xs font-bold ${lang === "en" ? "text-white" : "text-neutral-500"}`}>English</button>
-                        </div>
                     </div>
                 )}
             </nav>
@@ -220,13 +221,13 @@ export default function Navbar() {
                             </div>
 
                             <div className="text-center mb-8">
-                                <h2 className="text-2xl font-black text-white tracking-tighter uppercase">
-                                    {step === 1 ? "Welcome Back" : "Verify Number"}
+                                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tighter uppercase">
+                                    {step === 1 ? "ಸ್ವಾಗತ / WELCOME BACK" : "ಸಂಖ್ಯೆ ಪರಿಶೀಲಿಸಿ / VERIFY NUMBER"}
                                 </h2>
-                                <p className="text-sm text-neutral-400 mt-2 font-medium">
+                                <p className="text-xs sm:text-sm text-neutral-400 mt-2 font-medium">
                                     {step === 1
-                                        ? "Enter your mobile number to sign in or create an account."
-                                        : `We sent a 6-digit code to +91 ${phone}`}
+                                        ? "ಖಾತೆಗೆ ಲಾಗಿನ್ ಮಾಡಲು ಅಥವಾ ಹೊಸ ಖಾತೆಯನ್ನು ತೆರೆಯಲು ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ. / Enter your mobile number to sign in or create an account."
+                                        : `ನಾವು +91 ${phone} ಸಂಖ್ಯೆಗೆ 6-ಅಂಕಿಯ ಕೋಡ್ ಅನ್ನು ಕಳುಹಿಸಿದ್ದೇವೆ / We sent a 6-digit code to +91 ${phone}`}
                                 </p>
                             </div>
 
@@ -240,7 +241,7 @@ export default function Navbar() {
                                             type="tel"
                                             required
                                             maxLength={10}
-                                            placeholder="Mobile Number"
+                                            placeholder="98765 43210"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                                             className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all font-medium placeholder-neutral-600"
@@ -250,7 +251,7 @@ export default function Navbar() {
                                         type="submit"
                                         className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 active:scale-98 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
                                     >
-                                        Send Verification Code
+                                        ವೆರಿಫಿಕೇಶನ್ ಕೋಡ್ ಕಳುಹಿಸಿ / SEND VERIFICATION CODE
                                     </button>
                                 </form>
                             ) : (
@@ -268,14 +269,14 @@ export default function Navbar() {
                                         type="submit"
                                         className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
                                     >
-                                        Verify & Sign In
+                                        ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಸೈನ್ ಇನ್ ಮಾಡಿ / VERIFY & SIGN IN
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setStep(1)}
                                         className="text-xs text-neutral-400 hover:text-white font-semibold tracking-wide transition-colors mt-2 text-center underline"
                                     >
-                                        Edit Phone Number
+                                        ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಬದಲಾಯಿಸಿ / Edit Phone Number
                                     </button>
                                 </form>
                             )}
@@ -303,7 +304,7 @@ export default function Navbar() {
                         <input
                             autoFocus
                             type="text"
-                            placeholder="Search movies, genres, or actors..."
+                            placeholder="ಚಲನಚಿತ್ರಗಳು, ಪ್ರಕಾರಗಳು ಅಥವಾ ನಟರನ್ನು ಹುಡುಕಿ..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full bg-transparent text-4xl md:text-6xl font-black tracking-tighter text-white placeholder-neutral-700 outline-none border-b-2 border-white/10 focus:border-white pb-4 transition-colors rounded-none"

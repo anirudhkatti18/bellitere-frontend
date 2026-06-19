@@ -13,20 +13,20 @@ export default function BrowsePage() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-900 pb-6">
                     <div>
                         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-                            Premium <span className="text-amber-500">Catalog</span>
+                            ಪ್ರೀಮಿಯಂ <span className="text-amber-500">ಕ್ಯಾಟಲಾಗ್</span>
                         </h1>
                         <p className="text-neutral-400 mt-2 text-lg">
-                            Select a title to begin your 48-hour viewing window.
+                            ನಿಮ್ಮ 48 ಗಂಟೆಗಳ ವೀಕ್ಷಣೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು ಒಂದು ಚಲನಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.
                         </p>
                     </div>
 
                     {/* Quick Filter/Sort Mockup */}
                     <div className="flex items-center gap-3 text-sm">
-                        <span className="text-neutral-500">Sort by:</span>
+                        <span className="text-neutral-500">ಹೀಗೆ ವಿಂಗಡಿಸಿ:</span>
                         <select className="bg-neutral-900 border border-neutral-800 text-white px-3 py-1.5 rounded-lg outline-none focus:border-amber-500">
-                            <option>Latest Releases</option>
-                            <option>Most Popular</option>
-                            <option>Price: Low to High</option>
+                            <option>ಇತ್ತೀಚಿನ ಚಿತ್ರಗಳು</option>
+                            <option>ಅತ್ಯಂತ ಜನಪ್ರಿಯ</option>
+                            <option>ಬೆಲೆ: ಕಡಿಮೆಯಿಂದ ಹೆಚ್ಚಿಗೆ</option>
                         </select>
                     </div>
                 </div>

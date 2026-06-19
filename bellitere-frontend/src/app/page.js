@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MovieCard from "@/components/MovieCard";
@@ -53,55 +53,73 @@ const content = {
 export default function Home() {
     const { lang } = useLanguage();
     const t = content[lang];
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const heroMovies = mockCatalog.slice(0, 5);
+    const activeMovie = heroMovies[currentSlide];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % 5);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-blue-500/30">
-            {/* The Immersive Homepage Hero */}
-            <header className="relative w-full h-[85vh] min-h-[600px] flex items-center overflow-hidden bg-[#0a0a0a]">
-                {/* Simulated Video/Image Background */}
-                <div className="absolute inset-0 w-full h-full z-0">
-                    <img 
-                        src="/bellitere-frontend/hero-bg.png" 
-                        alt="Hero Background" 
-                        className="w-full h-full object-cover object-top scale-105 animate-[pulse_10s_ease-in-out_infinite] opacity-80"
-                    />
-                    {/* Aggressive Gradients for text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
+        <div className="min-h-screen bg-[#08080c] text-white selection:bg-blue-500/30">
+            {/* The Immersive Homepage Hero Carousel */}
+            <header className="relative h-[55vh] sm:h-[70vh] md:h-[85vh] w-full overflow-hidden bg-[#08080c] flex items-center">
+                {/* Auto-rotating Background Posters */}
+                <div className="absolute inset-0 w-full h-full z-0 bg-[#08080c]">
+                    {heroMovies.map((movie, index) => (
+                        <img 
+                            key={movie.id}
+                            src={movie.poster} 
+                            alt={movie.title} 
+                            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
+                                index === currentSlide ? "opacity-70 scale-100" : "opacity-0 scale-105"
+                            }`}
+                        />
+                    ))}
+                    
+                    {/* Layered CSS Gradient Masks */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#08080c]/90 via-[#08080c]/40 to-transparent z-[1]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080c] via-transparent to-transparent z-[2]" />
                 </div>
 
+                {/* Localized Content Overlay */}
                 <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 flex flex-col justify-center h-full pt-16">
                     <div className="max-w-2xl animate-fade-in-up">
-                        <h1 className="text-6xl md:text-8xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl mb-4">
-                            {t.hero.title}
+                        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl mb-4">
+                            {activeMovie.title}
                         </h1>
 
                         <div className="flex items-center gap-3 text-gray-300 font-bold mb-6 text-sm md:text-base drop-shadow-md">
-                            <span className="text-blue-400">★ 8.6</span>
+                            <span className="text-blue-400">★ {activeMovie.rating}</span>
                             <span>•</span>
-                            <span>2022</span>
+                            <span>{activeMovie.year}</span>
                             <span>•</span>
-                            <span>2h 30m</span>
+                            <span>{activeMovie.duration}</span>
                             <span>•</span>
-                            <span>Action Thriller</span>
+                            <span>{activeMovie.genre}</span>
                         </div>
 
-                        <p className="text-lg md:text-xl text-gray-300 font-medium leading-relaxed mb-8 drop-shadow-md max-w-xl line-clamp-3">
-                            {t.hero.description}
+                        <p className="text-base md:text-lg text-gray-300 font-medium leading-relaxed mb-8 drop-shadow-md max-w-xl line-clamp-3">
+                            {activeMovie.description}
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4">
                             <Link
-                                href={`/movies/1`}
+                                href={`/movies/${activeMovie.id}`}
                                 className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                             >
-                                {t.hero.playBtn}
+                                ▶ ಪ್ಲೇ
                             </Link>
                             <Link
-                                href={`/movies/1`}
+                                href={`/movies/${activeMovie.id}`}
                                 className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-8 py-3 hover:bg-white/20 transition-all font-bold cursor-pointer"
                             >
-                                {t.hero.moreBtn}
+                                ⓘ ಹೆಚ್ಚಿನ ಮಾಹಿತಿ
                             </Link>
                         </div>
                     </div>
@@ -117,26 +135,13 @@ export default function Home() {
                     <CarouselRow title={t.categories.comedy} items={mockCatalog.slice(3, 8)} isLandscape={true} />
                 </div>
             </main>
-
-            {/* Global Footer */}
-            <footer className="w-full border-t border-white/5 py-12 bg-[#050505]">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-start items-start gap-4">
-                    <div className="flex items-center gap-2 opacity-90">
-                        <Image src="/bellitere-frontend/Bellitere.png" alt="Bellitere" width={160} height={50} className="object-contain w-auto h-8 -my-2" />
-                    </div>
-                    <p className="text-xs font-medium text-neutral-500 whitespace-pre-line leading-relaxed">
-                        {t.footer.rights}
-                    </p>
-                </div>
-            </footer>
         </div>
     );
 }
 
-// Carousel Component with colored accent line and Movies/Series toggle
+// Carousel Component with colored accent line
 function CarouselRow({ title, items }) {
     const scrollRef = useRef(null);
-    const [activeTab, setActiveTab] = useState("Movies");
 
     const scroll = (direction) => {
         if (scrollRef.current) {
@@ -155,22 +160,6 @@ function CarouselRow({ title, items }) {
                     <h2 className="text-lg md:text-2xl font-bold tracking-tight text-white/90">
                         {title}
                     </h2>
-                </div>
-                
-                {/* Right-Side Text Toggles */}
-                <div className="hidden sm:flex items-center gap-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <button 
-                        onClick={() => setActiveTab("Movies")}
-                        className={`transition-colors hover:text-white ${activeTab === "Movies" ? "text-white border-b-2 border-blue-500 pb-1" : ""}`}
-                    >
-                        Movies
-                    </button>
-                    <button 
-                        onClick={() => setActiveTab("Series")}
-                        className={`transition-colors hover:text-white ${activeTab === "Series" ? "text-white border-b-2 border-blue-500 pb-1" : ""}`}
-                    >
-                        Series
-                    </button>
                 </div>
             </div>
 
