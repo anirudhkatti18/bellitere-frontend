@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -14,6 +14,17 @@ export default function MovieDetail() {
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState("idle"); // idle, processing, success
     const [isPurchased, setIsPurchased] = useState(false);
+
+    const videoRef = useRef(null);
+    const [isMuted, setIsMuted] = useState(true);
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            const newMuted = !isMuted;
+            videoRef.current.muted = newMuted;
+            setIsMuted(newMuted);
+        }
+    };
 
     const movieId = params?.id ? Number(params.id) : 1;
     const movie = getMovieById(movieId) || getMovieById(1);
@@ -51,17 +62,38 @@ export default function MovieDetail() {
             <section className="relative w-full h-[85vh] min-h-[600px] bg-[#08080c] overflow-hidden">
                 {/* Background Media */}
                 <video 
+                    ref={videoRef}
                     autoPlay 
                     loop 
-                    muted 
+                    muted={isMuted}
                     playsInline 
-                    className="absolute inset-0 w-full h-full object-cover z-0 animate-pulse-slow scale-105"
-                    src={movie.trailer}
+                    className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
+                    src={movie.trailerUrl}
                 />
                 
+                {/* Subtle dark overlay masking box to ensure legibility */}
+                <div className="absolute inset-0 z-0 bg-black/40" />
+
                 {/* Dual Gradients for Text Legibility & Fade Out */}
                 <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#08080c] via-[#08080c]/70 to-transparent" />
                 <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#08080c] via-transparent to-transparent" />
+
+                {/* Mute/Unmute Floating Button */}
+                <button 
+                    onClick={toggleMute}
+                    className="absolute top-24 right-6 md:right-12 z-30 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full border border-white/10 backdrop-blur-md transition-all hover:scale-110 flex items-center justify-center cursor-pointer shadow-lg"
+                    aria-label={isMuted ? "Unmute trailer" : "Mute trailer"}
+                >
+                    {isMuted ? (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6L4.5 9H1.5v6h3l4.5 3.75V5.25z" />
+                        </svg>
+                    ) : (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                        </svg>
+                    )}
+                </button>
 
                 {/* The Overlay Content (Left-Aligned) */}
                 <div className="relative z-10 flex flex-col md:flex-row gap-6 md:gap-12 justify-end items-start md:items-end h-full pb-20 px-8 lg:px-16 max-w-5xl">
@@ -76,7 +108,7 @@ export default function MovieDetail() {
                         </h1>
                         
                         <div className="flex items-center gap-3 text-gray-300 font-medium mb-6 text-sm md:text-base drop-shadow-md">
-                            <span className="text-blue-400 font-bold">★ {movie.rating}</span>
+                            <span className="text-zinc-300 font-bold">★ {movie.rating}</span>
                             <span>•</span>
                             <span>{movie.year}</span>
                             <span>•</span>
@@ -94,7 +126,7 @@ export default function MovieDetail() {
                             {!isPurchased ? (
                                 <button 
                                     onClick={handleRentClick}
-                                    className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                                    className="flex items-center gap-2 bg-chrome text-black px-8 py-3 rounded-lg font-extrabold hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(226,232,240,0.3)] glow-chrome"
                                 >
                                     <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                                     Rent • ₹{movie.price}
@@ -102,14 +134,14 @@ export default function MovieDetail() {
                             ) : (
                                 <button 
                                     onClick={() => router.push(`/watch/${movie.id}`)}
-                                    className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                                    className="flex items-center gap-2 bg-chrome text-black px-8 py-3 rounded-lg font-extrabold hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(226,232,240,0.3)] glow-chrome"
                                 >
                                     <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                                     ಪ್ಲೇ ಮಾಡಿ
                                 </button>
                             )}
 
-                            <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-3 hover:bg-white/20 transition-all cursor-pointer font-medium">
+                            <button className="flex items-center gap-2 bg-white/5 backdrop-blur-md border border-zinc-400/30 text-white rounded-lg px-5 py-3 hover:border-zinc-300 hover:bg-white/10 transition-all cursor-pointer font-medium">
                                 <span className="text-xl leading-none">+</span>
                                 <span className="hidden sm:inline">ವೀಕ್ಷಣಾ ಪಟ್ಟಿ</span>
                             </button>
@@ -122,13 +154,13 @@ export default function MovieDetail() {
             <section className="px-8 lg:px-16 pb-24 space-y-16 -mt-8 relative z-20">
                 {/* Actors Section */}
                 <div>
-                    <h2 className="text-xl md:text-2xl font-bold mb-6 text-white tracking-wide border-l-4 border-blue-500 pl-3 uppercase">
+                    <h2 className="text-xl md:text-2xl font-bold mb-6 text-white tracking-wide border-l-4 border-zinc-400 pl-3 uppercase">
                         ಕಲಾವಿದರು
                     </h2>
                     <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar">
                         {movieActors.map(actor => (
-                            <div key={actor.id} className="flex-shrink-0 flex items-center gap-3 bg-white/5 border border-white/10 rounded-full pr-6 pl-1.5 py-1.5 hover:bg-white/10 transition-colors cursor-pointer backdrop-blur-sm">
-                                <img src={actor.img} alt={actor.name} className="w-12 h-12 rounded-full object-cover border border-white/20" />
+                            <div key={actor.id} className="flex-shrink-0 flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg pr-4 pl-3 py-2 hover:bg-white/10 transition-colors cursor-pointer backdrop-blur-sm">
+                                <img src={actor.img} alt={actor.name} className="w-12 h-12 rounded-md object-cover border border-white/20" />
                                 <div className="flex flex-col justify-center">
                                     <span className="text-sm font-bold text-white leading-tight">{actor.name}</span>
                                     <span className="text-xs text-gray-400 font-medium">{actor.role}</span>
@@ -140,7 +172,7 @@ export default function MovieDetail() {
 
                 {/* You may like Section */}
                 <div>
-                    <h2 className="text-xl md:text-2xl font-bold mb-6 text-white tracking-wide border-l-4 border-blue-500 pl-3 uppercase">
+                    <h2 className="text-xl md:text-2xl font-bold mb-6 text-white tracking-wide border-l-4 border-zinc-400 pl-3 uppercase">
                         ನೀವು ಇಷ್ಟಪಡಬಹುದು
                     </h2>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
@@ -169,7 +201,7 @@ export default function MovieDetail() {
                                 </div>
                                 <button 
                                     onClick={processPayment}
-                                    className="w-full bg-[#3399cc] hover:bg-[#2b88b7] text-white font-bold py-3 rounded-sm transition-colors uppercase tracking-widest shadow-lg shadow-[#3399cc]/20"
+                                    className="w-full bg-chrome text-black font-extrabold py-3 rounded-sm transition-all uppercase tracking-widest shadow-lg hover:opacity-90 shadow-zinc-400/20"
                                 >
                                     ರೇಜರ್‌ಪೇ ಮೂಲಕ ಪಾವತಿಸಿ / Pay via Razorpay
                                 </button>
@@ -184,7 +216,7 @@ export default function MovieDetail() {
                         
                         {paymentStatus === "processing" && (
                             <div className="flex flex-col items-center justify-center py-8">
-                                <div className="w-12 h-12 border-4 border-white/20 border-t-[#3399cc] rounded-full animate-spin mb-6"></div>
+                                <div className="w-12 h-12 border-4 border-white/20 border-t-zinc-400 rounded-full animate-spin mb-6"></div>
                                 <h3 className="text-lg font-bold text-white tracking-widest uppercase">ಪಾವತಿ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿದೆ / Processing Payment</h3>
                                 <p className="text-neutral-400 text-sm mt-2">ದಯವಿಟ್ಟು ಈ ವಿಂಡೋವನ್ನು ಮುಚ್ಚಬೇಡಿ. / Please do not close this window.</p>
                             </div>

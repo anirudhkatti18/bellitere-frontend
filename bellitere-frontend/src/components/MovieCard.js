@@ -22,7 +22,7 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
     return (
         <Link href={`/movies/${movieDetails.id}`} className="block h-full group relative z-10 w-full">
             {/* Aspect container with hover scale */}
-            <div className={`relative w-full bg-neutral-900 rounded-xl overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:z-50 ${
+            <div className={`relative w-full bg-neutral-900 rounded-md overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:z-50 ${
                 isLandscape ? "aspect-video" : "aspect-[2/3]"
             }`}>
                 
@@ -56,8 +56,8 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                 {/* Top 10/Trending Badge */}
                 {isTopTen && (
                     <div className="absolute top-2 left-2 z-20 pointer-events-none">
-                        <div className="bg-gradient-to-r from-blue-600/80 to-purple-600/80 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-white/20">
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        <div className="bg-gradient-to-r from-zinc-500/80 via-slate-300/80 to-zinc-600/80 backdrop-blur-md text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded-sm shadow-md flex items-center gap-1 border border-zinc-400/30">
+                            <svg className="w-3 h-3 stroke-black" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                             TOP 10
                         </div>
                     </div>
@@ -78,11 +78,11 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
 
             {/* Minimal text underneath the card */}
             <div className="mt-3 px-1 flex flex-col gap-1">
-                <h3 className="text-sm font-semibold text-white leading-tight line-clamp-1 group-hover:text-blue-400 transition-colors">
+                <h3 className="text-sm font-semibold text-white leading-tight line-clamp-1 group-hover:text-zinc-300 transition-colors">
                     {movieDetails.title}
                 </h3>
                 <div className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-gray-400">
-                    <span className="text-blue-400 font-bold">★ {ratingScore}</span>
+                    <span className="text-zinc-300 font-bold">★ {ratingScore}</span>
                     <span>•</span>
                     <span>{releaseYear}</span>
                 </div>

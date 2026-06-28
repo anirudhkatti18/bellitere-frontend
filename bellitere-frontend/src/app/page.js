@@ -8,44 +8,32 @@ import { useLanguage } from "@/context/LanguageContext";
 
 import { mockCatalog } from "@/lib/catalog";
 
-// Bilingual content translation object
+// Bilingual content translation object for movies-only digital theatre
 const content = {
     en: {
         hero: {
-            title: "KANTARA",
-            kannadaTitle: "ಕಾಂತಾರ",
-            tagline: "A Legend of Sacred Groves and Divine Justice",
-            description: "A fiery local rebel clashes with a strict forest officer in a coastal hamlet. When ancient spirits and tribal folklore intersect with human greed, a mystical battle for survival begins.",
-            playBtn: "▶ Play",
-            moreBtn: "ⓘ See More",
+            playBtn: "▶ Play Movie",
+            listBtn: "＋ Watchlist",
         },
         categories: {
-            trending: "Top 10 Today",
-            newReleases: "Trending Today",
-            classics: "Top rated",
-            comedy: "Comedy"
-        },
-        footer: {
-            rights: "Bellitere.\nThis site does not store any files on our server, we only link to media hosted on 3rd party services.\ncontact@bellitere.com",
+            trailers: "Exclusive Trailers",
+            trending: "Top Content Today",
+            newReleases: "Trending Movies",
+            classics: "Top Rated Movies",
+            comedy: "Blockbuster Hits"
         }
     },
     kn: {
         hero: {
-            title: "ಕಾಂತಾರ",
-            kannadaTitle: "Kantara",
-            tagline: "ಪವಿತ್ರ ಕಾಡುಗಳು ಮತ್ತು ದೈವಿಕ ನ್ಯಾಯದ ದಂತಕಥೆ",
-            description: "ಕರಾವಳಿಯ ಒಂದು ಸಣ್ಣ ಹಳ್ಳಿಯಲ್ಲಿ ಸ್ಥಳೀಯ ಬಂಡಾಯಗಾರ ಮತ್ತು ಕಟ್ಟುನಿಟ್ಟಾದ ಅರಣ್ಯ ಅಧಿಕಾರಿಯ ನಡುವೆ ಘರ್ಷಣೆ ನಡೆಯುತ್ತದೆ. ಪುರಾತನ ಶಕ್ತಿಗಳು ಮತ್ತು ಬುಡಕಟ್ಟು ಜಾನಪದಗಳು ಮಾನವನ ದುರಾಶೆಯೊಂದಿಗೆ ಸಂಧಿಸಿದಾಗ, ಉಳಿವಿಗಾಗಿ ನಿಗೂಢ ಯುದ್ಧ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ.",
-            playBtn: "▶ ಪ್ಲೇ",
-            moreBtn: "ⓘ ಹೆಚ್ಚಿನ ಮಾಹಿತಿ",
+            playBtn: "▶ ಪ್ಲೇ ಮಾಡಿ",
+            listBtn: "＋ ವೀಕ್ಷಣಾ ಪಟ್ಟಿ",
         },
         categories: {
+            trailers: "ವಿಶೇಷ ಟ್ರೇಲರ್‌ಗಳು",
             trending: "ಇಂದು ಟಾಪ್ 10",
-            newReleases: "ಇಂದು ಟ್ರೆಂಡಿಂಗ್",
-            classics: "ಟಾಪ್ ರೇಟೆಡ್",
-            comedy: "ಕಾಮಿಡಿ"
-        },
-        footer: {
-            rights: "ಬೆಳ್ಳಿತ್ತೆರೆ.\nಈ ಸೈಟ್ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಯಾವುದೇ ಫೈಲ್‌ಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ, ನಾವು 3ನೇ ವ್ಯಕ್ತಿಯ ಸೇವೆಗಳಲ್ಲಿ ಹೋಸ್ಟ್ ಮಾಡಲಾದ ಮಾಧ್ಯಮಕ್ಕೆ ಮಾತ್ರ ಲಿಂಕ್ ಮಾಡುತ್ತೇವೆ.\ncontact@bellitere.com",
+            newReleases: "ಟ್ರೆಂಡಿಂಗ್ ಚಲನಚಿತ್ರಗಳು",
+            classics: "ಟಾಪ್ ರೇಟೆಡ್ ಚಿತ್ರಗಳು",
+            comedy: "ಬ್ಲಾಕ್‌ಬಸ್ಟರ್ ಹಿಟ್‌ಗಳು"
         }
     }
 };
@@ -61,82 +49,126 @@ export default function Home() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % 5);
-        }, 8000);
+        }, 9000);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#08080c] text-white selection:bg-blue-500/30">
-            {/* The Immersive Homepage Hero Carousel */}
-            <header className="w-full bg-[#08080c] pt-24 pb-16 px-6 md:px-16 flex items-center justify-center min-h-[70vh] mb-8">
-                <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    {/* Left Column (The Text & Actions Zone) */}
-                    <div className="flex flex-col gap-4 text-left justify-center">
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tighter drop-shadow-2xl mb-2">
-                            {activeMovie.title}
-                        </h1>
+        <div className="min-h-screen bg-[#08080c] text-white selection:bg-zinc-500/30 relative overflow-hidden pb-16">
+            {/* Ambient Radial Glowing Accents */}
+            <div className="absolute top-0 right-0 w-[60vw] h-[60vw] rounded-full bg-zinc-300/[0.03] blur-[150px] pointer-events-none z-0" />
+            <div className="absolute top-[20%] left-[-15vw] w-[50vw] h-[50vw] rounded-full bg-zinc-400/[0.02] blur-[120px] pointer-events-none z-0" />
 
-                        <div className="flex items-center gap-3 text-gray-300 font-bold mb-2 text-sm md:text-base drop-shadow-md">
-                            <span className="text-blue-400">★ {activeMovie.rating}</span>
+            {/* Split Showcase Hero Section */}
+            <header className="relative w-full z-10 pt-28 pb-12">
+                <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[60vh]">
+                    
+                    {/* Left Column: Movie Details Pane */}
+                    <div className="md:col-span-7 flex flex-col gap-4 text-left order-last md:order-first">
+                        {/* Rating and tags */}
+                        <div className="flex items-center gap-3 text-zinc-400 text-xs md:text-sm font-black uppercase tracking-widest">
+                            <span className="text-zinc-100 bg-white/10 px-2.5 py-0.5 rounded border border-white/10">★ {activeMovie.rating}</span>
+                            <span>•</span>
+                            <span>{activeMovie.genre}</span>
                             <span>•</span>
                             <span>{activeMovie.year}</span>
                             <span>•</span>
                             <span>{activeMovie.duration}</span>
-                            <span>•</span>
-                            <span>{activeMovie.genre}</span>
                         </div>
 
-                        <p className="text-base md:text-lg text-gray-300 font-medium leading-relaxed mb-4 drop-shadow-md max-w-xl line-clamp-3">
+                        {/* Title */}
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-2xl">
+                            {lang === "kn" && activeMovie.kannadaTitle ? activeMovie.kannadaTitle : activeMovie.title}
+                        </h1>
+
+                        {/* Description */}
+                        <p className="text-sm sm:text-base text-neutral-300 font-medium leading-relaxed max-w-xl drop-shadow-lg line-clamp-4">
                             {activeMovie.description}
                         </p>
 
-                        <div className="flex flex-wrap items-center gap-4">
+                        {/* CTAs */}
+                        <div className="flex items-center gap-4 mt-4">
                             <Link
                                 href={`/movies/${activeMovie.id}`}
-                                className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                                className="flex items-center justify-center gap-2 bg-chrome text-black px-6 py-2.5 rounded-lg font-black hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(226,232,240,0.3)] text-sm uppercase cursor-pointer"
                             >
-                                ▶ ಪ್ಲೇ
+                                {t.hero.playBtn}
                             </Link>
                             <Link
                                 href={`/movies/${activeMovie.id}`}
-                                className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-8 py-3 hover:bg-white/20 transition-all font-bold cursor-pointer"
+                                className="flex items-center justify-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-white/15 transition-all text-sm uppercase cursor-pointer"
                             >
-                                ⓘ ಹೆಚ್ಚಿನ ಮಾಹಿತಿ
+                                {t.hero.listBtn}
                             </Link>
+                        </div>
+
+                        {/* Slide Indicators */}
+                        <div className="flex gap-2.5 mt-6">
+                            {heroMovies.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentSlide(index)}
+                                    className={`w-2 h-2 rotate-45 transition-all duration-300 ${
+                                        index === currentSlide ? "bg-zinc-300 scale-125" : "bg-white/20 hover:bg-white/40"
+                                    }`}
+                                    aria-label={`Go to slide ${index + 1}`}
+                                />
+                            ))}
                         </div>
                     </div>
 
-                    {/* Right Column (The Uncropped Poster Zone) */}
-                    <div className="flex justify-center md:justify-end items-center h-full max-h-[500px] relative w-full md:pr-4 order-first md:order-last">
-                        {heroMovies.map((movie, index) => (
+                    {/* Right Column: True Aspect Poster Frame (No stretch) */}
+                    <div className="md:col-span-5 flex justify-center items-center order-first md:order-last">
+                        <div className="relative aspect-[2/3] w-full max-w-[240px] sm:max-w-[280px] rounded-xl overflow-hidden border border-zinc-400/20 shadow-[0_20px_50px_rgba(0,0,0,0.85)] group/hero transition-all duration-500 hover:scale-[1.01]">
+                            {/* Poster Image */}
                             <img 
-                                key={movie.id}
-                                src={movie.poster} 
-                                alt={movie.title} 
-                                className={`rounded-xl shadow-2xl border border-white/10 h-[280px] sm:h-[350px] md:h-[450px] w-auto mx-auto object-contain transition-all duration-1000 ease-in-out ${
-                                    index === currentSlide ? "opacity-100 scale-100 relative" : "opacity-0 scale-95 absolute pointer-events-none"
-                                }`}
+                                src={activeMovie.poster} 
+                                alt={activeMovie.title} 
+                                className="w-full h-full object-cover z-0"
                             />
-                        ))}
+                            {/* Glass overlay shine */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 pointer-events-none z-10" />
+                        </div>
                     </div>
+
                 </div>
             </header>
 
-            {/* Catalog Sections */}
-            <main className="relative z-20 pb-24 -mt-16 bg-transparent">
-                <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex flex-col gap-12 md:gap-16">
-                    <CarouselRow title={t.categories.trending} items={mockCatalog.slice(0, 5)} />
-                    <CarouselRow title={t.categories.newReleases} items={mockCatalog.slice(5, 10)} isLandscape={true} />
-                    <CarouselRow title={t.categories.classics} items={mockCatalog.slice(1, 6)} isLandscape={true} />
-                    <CarouselRow title={t.categories.comedy} items={mockCatalog.slice(3, 8)} isLandscape={true} />
+            {/* Promotional Billboard */}
+            <section className="w-full bg-gradient-to-r from-black via-neutral-950 to-black border-y border-white/5 py-8 px-6 text-center relative overflow-hidden z-20 my-4">
+                <div className="max-w-4xl mx-auto flex flex-col gap-1.5 relative z-10">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black bg-gradient-to-r from-zinc-400 via-slate-200 to-zinc-500 bg-clip-text text-transparent uppercase tracking-tight">
+                        ಕನ್ನಡದ ಪ್ರಥಮ ಡಿಜಿಟಲ್ ಥಿಯೇಟರ್ ಮತ್ತು ಕನ್ನಡ ಮನರಂಜನಾ ವೇದಿಕೆ
+                    </h2>
+                    <p className="text-[10px] sm:text-xs text-neutral-400 font-bold uppercase tracking-[0.2em]">
+                        Kannada's First Digital Theatre & Kannada Entertainment Platform
+                    </p>
+                </div>
+            </section>
+
+            {/* High Density Movie-Only Categories */}
+            <main className="relative z-20 bg-transparent -mt-2">
+                <div className="max-w-[1600px] mx-auto px-4 md:px-12 flex flex-col gap-10 md:gap-14">
+                    {/* Top Content Row: Translucent ranking watermarks layout */}
+                    <CarouselRow 
+                        title={t.categories.trending} 
+                        items={mockCatalog.slice(0, 5)} 
+                        showRank={true} 
+                    />
+                    
+                    {/* Standard High-Density Rows */}
+                    <CarouselRow title={t.categories.trailers} items={mockCatalog} isLandscape={true} />
+                    <CarouselRow title={t.categories.newReleases} items={mockCatalog.slice(5, 10)} />
+                    <CarouselRow title={t.categories.classics} items={mockCatalog.slice(1, 6)} />
+                    <CarouselRow title={t.categories.comedy} items={mockCatalog.slice(3, 8)} />
                 </div>
             </main>
         </div>
     );
 }
 
-// Carousel Component with colored accent line
-function CarouselRow({ title, items }) {
+// Custom Carousel Row Component supporting layout shifts
+function CarouselRow({ title, items, isLandscape = false, showRank = false }) {
     const scrollRef = useRef(null);
 
     const scroll = (direction) => {
@@ -148,42 +180,71 @@ function CarouselRow({ title, items }) {
     };
 
     return (
-        <section className="relative w-full flex flex-col gap-4 group">
-            {/* Header Area */}
-            <div className="flex justify-between items-end mb-2">
-                <div className="flex items-center gap-3">
-                    <div className="w-1.5 h-6 rounded-full bg-gradient-to-b from-blue-500 to-purple-600" />
-                    <h2 className="text-lg md:text-2xl font-bold tracking-tight text-white/90">
+        <section className="relative w-full flex flex-col gap-3 group">
+            {/* Row Title */}
+            <div className="flex justify-between items-end">
+                <div className="flex items-center gap-2">
+                    <div className="w-1 h-5 bg-gradient-to-b from-zinc-400 via-slate-200 to-zinc-500 glow-chrome" />
+                    <h2 className="text-base md:text-xl font-bold tracking-tight text-white/95 uppercase">
                         {title}
                     </h2>
                 </div>
             </div>
 
-            {/* Scroll Controls (Hidden on Mobile) */}
+            {/* Carousel Navigation Buttons */}
             <button
                 onClick={() => scroll("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:block -ml-4 backdrop-blur-md"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-black/60 hover:bg-black/85 text-white p-2.5 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:block -ml-3 backdrop-blur-md border border-white/5 cursor-pointer"
             >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg>
             </button>
             <button
                 onClick={() => scroll("right")}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:block -mr-4 backdrop-blur-md"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-black/60 hover:bg-black/85 text-white p-2.5 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:block -mr-3 backdrop-blur-md border border-white/5 cursor-pointer"
             >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
             </button>
 
-            {/* Horizontally Scrollable Container */}
+            {/* Scrollable grid strip */}
             <div
                 ref={scrollRef}
-                className="flex overflow-x-scroll scrollbar-hide gap-4 px-4 md:px-0 pb-8 pt-4 -mt-4"
+                className="flex overflow-x-scroll scrollbar-hide gap-1.5 px-2 md:px-0 pb-6 pt-2 -mt-2"
                 style={{ scrollSnapType: "x mandatory" }}
             >
-                {items.map((movie) => (
-                    <div key={`row-${title}-${movie.id}`} className="shrink-0 w-[140px] sm:w-[160px] md:w-[200px] lg:w-[240px]" style={{ scrollSnapAlign: "start" }}>
-                        <MovieCard movie={movie} />
-                    </div>
-                ))}
+                {items.map((movie, index) => {
+                    if (showRank) {
+                        return (
+                            <div 
+                                key={`rank-${title}-${movie.id}`} 
+                                className="shrink-0 flex items-center relative pl-8 select-none w-[170px] sm:w-[210px] md:w-[270px] lg:w-[310px]"
+                                style={{ scrollSnapAlign: "start" }}
+                            >
+                                {/* Giant stylized translucent watermark rank number */}
+                                <div className="absolute left-0 bottom-[-30px] sm:bottom-[-40px] z-0 text-[160px] sm:text-[200px] md:text-[240px] font-black text-white/5 select-none leading-none pointer-events-none tracking-tighter">
+                                    {index + 1}
+                                </div>
+                                {/* Poster card overlapping on top of the number's right side */}
+                                <div className="w-[110px] sm:w-[140px] md:w-[185px] lg:w-[220px] ml-auto relative z-10">
+                                    <MovieCard movie={movie} />
+                                </div>
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <div 
+                            key={`row-${title}-${movie.id}`} 
+                            className={`shrink-0 transition-all duration-300 ${
+                                isLandscape 
+                                    ? "w-[200px] sm:w-[240px] md:w-[320px] lg:w-[380px]" 
+                                    : "w-[120px] sm:w-[140px] md:w-[170px] lg:w-[210px]"
+                            }`} 
+                            style={{ scrollSnapAlign: "start" }}
+                        >
+                            <MovieCard movie={movie} isLandscape={isLandscape} />
+                        </div>
+                    );
+                })}
             </div>
         </section>
     );

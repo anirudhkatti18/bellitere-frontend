@@ -99,8 +99,12 @@ export default function Navbar() {
     return (
         <>
             {/* Global Navigation Bar */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 py-3 transition-all duration-300">
-                <div className="max-w-7xl mx-auto px-4 md:px-16 flex justify-between items-center relative">
+            <nav className={`fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl z-50 rounded-2xl transition-all duration-300 ${
+                isScrolled 
+                    ? "bg-black/90 border border-zinc-400/30 py-2.5 shadow-[0_15px_45px_rgba(0,0,0,0.95)]" 
+                    : "bg-[#08080c]/70 border border-zinc-500/20 py-3.5"
+            } backdrop-blur-xl`}>
+                <div className="w-full px-6 md:px-12 flex justify-between items-center relative">
                     {/* Brand Logo Link (Far Left) */}
                     <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer p-0 m-0 flex items-center gap-2">
                         <Image
@@ -108,19 +112,39 @@ export default function Navbar() {
                             alt="Bellitere"
                             width={240}
                             height={80}
-                            className="object-contain w-auto h-9 w-9 md:h-14 md:w-14 hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
+                            className="object-contain w-auto h-8 md:h-11 hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
                             priority
                         />
-                        <span className="text-white font-bold text-lg md:text-2xl tracking-wide">ಬೆಳ್ಳಿತೆರೆ</span>
+                        <span className="text-chrome font-black text-lg md:text-2xl tracking-wide uppercase">ಬೆಳ್ಳಿತೆರೆ</span>
                     </Link>
 
-                    {/* Desktop Navigation & Controls (Right Aligned) */}
-                    <div className="hidden md:flex items-center gap-5">
-
+                    {/* Desktop Controls (Right Aligned) */}
+                    <div className="hidden md:flex items-center gap-4">
                         {/* Search Icon */}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-neutral-300 hover:text-white transition-colors p-1 hover:scale-110 transform"
+                            className="text-neutral-300 hover:text-white transition-colors p-2 hover:scale-110 transform border border-transparent hover:border-white/10 rounded-md cursor-pointer"
+                        >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+
+                        {/* Sign In Button */}
+                        <button
+                            onClick={() => setIsOpen(true)}
+                            className="bg-chrome text-black px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-105 hover:opacity-90 cursor-pointer shadow-md glow-chrome"
+                        >
+                            ಸೈನ್ ಇನ್ / SIGN IN
+                        </button>
+                    </div>
+
+                    {/* Mobile Controls */}
+                    <div className="flex md:hidden gap-3 items-center">
+                        {/* Search Icon */}
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="text-neutral-300 hover:text-white transition-colors p-1"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -130,59 +154,12 @@ export default function Navbar() {
                         {/* Sign In Button */}
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-white hover:bg-neutral-200 text-black px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                            className="bg-chrome text-black px-2.5 py-1.5 rounded-md text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer shadow-md glow-chrome"
                         >
-                            ಸೈನ್ ಇನ್ / SIGN IN
-                        </button>
-                    </div>
-
-                    {/* Mobile Menu Controls */}
-                    <div className="flex md:hidden gap-3 items-center">
-                        <button
-                            onClick={() => setIsSearchOpen(true)}
-                            className="text-neutral-300 hover:text-white transition-colors p-1"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                        <button
-                            onClick={() => setIsOpen(true)}
-                            className="bg-white text-black px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap"
-                        >
-                            ಸೈನ್ ಇನ್ / SIGN IN
-                        </button>
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="text-white hover:text-neutral-300 p-1.5 focus:outline-none transition-colors"
-                        >
-                            {mobileMenuOpen ? (
-                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            ) : (
-                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            )}
+                            SIGN IN
                         </button>
                     </div>
                 </div>
-
-                {/* Mobile Dropdown Menu Drawer */}
-                {mobileMenuOpen && (
-                    <div className="absolute top-full left-0 w-full bg-[#08080c]/95 backdrop-blur-xl border-b border-white/10 py-6 px-8 flex flex-col gap-5 animate-fade-in md:hidden">
-                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
-                            Home
-                        </Link>
-                        <Link href="/browse" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
-                            Catalog
-                        </Link>
-                        <Link href="/browse" onClick={() => setMobileMenuOpen(false)} className="text-base font-semibold tracking-wide text-neutral-300 hover:text-white transition-colors">
-                            Browse
-                        </Link>
-                    </div>
-                )}
             </nav>
 
             {/* OTP Login Modal Overlay */}
@@ -245,12 +222,12 @@ export default function Navbar() {
                                             placeholder="98765 43210"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                                            className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all font-medium placeholder-neutral-600"
+                                            className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm pl-14 pr-4 py-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300/80 transition-all font-medium placeholder-neutral-600"
                                         />
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 active:scale-98 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
+                                        className="w-full bg-chrome active:scale-98 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg hover:opacity-90 shadow-zinc-400/20"
                                     >
                                         ವೆರಿಫಿಕೇಶನ್ ಕೋಡ್ ಕಳುಹಿಸಿ / SEND VERIFICATION CODE
                                     </button>
@@ -264,11 +241,11 @@ export default function Navbar() {
                                         placeholder="••••••"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                                        className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm px-4 py-3 text-white tracking-[0.6em] text-center font-mono focus:outline-none focus:ring-1 focus:ring-white focus:border-white/80 transition-all text-lg"
+                                        className="w-full bg-neutral-900/80 border border-neutral-800 rounded-sm px-4 py-3 text-white tracking-[0.6em] text-center font-mono focus:outline-none focus:ring-1 focus:ring-zinc-300 focus:border-zinc-300/80 transition-all text-lg"
                                     />
                                     <button
                                         type="submit"
-                                        className="w-full bg-gradient-to-r from-neutral-200 via-white to-neutral-300 hover:from-white hover:to-neutral-200 text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg shadow-white/10"
+                                        className="w-full bg-chrome text-black font-extrabold py-3 rounded-sm transition-all duration-200 text-sm tracking-wider uppercase cursor-pointer shadow-lg hover:opacity-90 shadow-zinc-400/20"
                                     >
                                         ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಸೈನ್ ಇನ್ ಮಾಡಿ / VERIFY & SIGN IN
                                     </button>
@@ -308,7 +285,7 @@ export default function Navbar() {
                         </div>
 
                         {/* Search Input Container */}
-                        <div className="relative flex items-center w-full bg-[#111] border border-white/10 rounded-xl focus-within:border-white/30 transition-all">
+                        <div className="relative flex items-center w-full bg-[#111] border border-white/10 rounded-xl focus-within:border-zinc-300/40 focus-within:ring-1 focus-within:ring-zinc-300/30 transition-all">
                             <svg className="absolute left-4 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
