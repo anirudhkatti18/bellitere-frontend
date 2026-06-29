@@ -42,6 +42,7 @@ export default function Home() {
     const { lang } = useLanguage();
     const t = content[lang];
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [hasEntered, setHasEntered] = useState(false);
 
     const heroMovies = mockCatalog.slice(0, 5);
     const activeMovie = heroMovies[currentSlide];
@@ -52,6 +53,62 @@ export default function Home() {
         }, 9000);
         return () => clearInterval(interval);
     }, []);
+
+    if (!hasEntered) {
+        return (
+            <div className="min-h-screen w-full bg-[#08080c] text-white flex flex-col justify-end relative overflow-hidden z-[99]">
+                {/* Background Artwork Canvas: Top Half */}
+                <div className="absolute inset-x-0 top-0 h-[60vh] w-full z-0 overflow-hidden">
+                    <img 
+                        src={mockCatalog[0].poster} 
+                        alt="Cinematic Backdrop" 
+                        className="w-full h-full object-cover object-top opacity-50 scale-105"
+                    />
+                    {/* Gradient Masking Veil */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080c] via-[#08080c]/50 to-transparent" />
+                </div>
+
+                {/* Brand & Action Panel: Bottom Half */}
+                <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center -mt-20 md:-mt-32 max-w-2xl mx-auto gap-6 pb-20">
+                    {/* Hero Logo Group */}
+                    <div className="flex flex-col items-center gap-2">
+                        <Image
+                            src="/bellitere-frontend/Bellitere.png"
+                            alt="Bellitere Logo"
+                            width={220}
+                            height={220}
+                            className="object-contain h-20 w-20 md:h-28 md:w-28 mb-2 drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] animate-pulse"
+                            priority
+                        />
+                        <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 via-slate-100 to-zinc-500 uppercase tracking-widest leading-none">
+                            ಬೆಳ್ಳಿತೆರೆ
+                        </h1>
+                    </div>
+
+                    {/* Slogan Text */}
+                    <p className="text-sm md:text-lg font-medium tracking-wide text-zinc-400 max-w-md leading-relaxed">
+                        ಕನ್ನಡದ ಪ್ರಥಮ ಡಿಜಿಟಲ್ ಥಿಯೇಟರ್ ಮತ್ತು ಕನ್ನಡ ಮನರಂಜನಾ ವೇದಿಕೆ
+                    </p>
+
+                    {/* Dual Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-sm mt-4">
+                        <button
+                            onClick={() => setHasEntered(true)}
+                            className="w-full sm:w-48 py-3.5 px-6 rounded-xl font-bold text-sm bg-gradient-to-r from-zinc-300 via-slate-100 to-zinc-400 text-black hover:opacity-90 active:scale-95 transition-all shadow-lg cursor-pointer"
+                        >
+                            ಅನ್ವೇಷಿಸಿ / EXPLORE
+                        </button>
+                        <button
+                            onClick={() => window.dispatchEvent(new Event("open-login-modal"))}
+                            className="w-full sm:w-48 py-3.5 px-6 rounded-xl font-bold text-sm border border-white/20 bg-white/5 text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+                        >
+                            ಸೈನ್ ಇನ್ / SIGN IN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#08080c] text-white selection:bg-zinc-500/30 relative overflow-hidden pb-16">

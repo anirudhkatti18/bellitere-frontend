@@ -37,11 +37,17 @@ export default function Navbar() {
             }
         };
 
+        const handleOpenLogin = () => setIsOpen(true);
+        window.addEventListener("open-login-modal", handleOpenLogin);
+
         window.addEventListener("scroll", handleScroll);
         // Run once on mount to capture initial state
         handleScroll();
 
-        return () => window.removeEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("open-login-modal", handleOpenLogin);
+        };
     }, []);
 
     // Intercept Escape key and browser back button when search is open

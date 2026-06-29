@@ -1,7 +1,10 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { getMovieById } from "@/lib/catalog";
 
 export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
+    const router = useRouter();
     // Look up the full movie from central catalog by ID, fallback to passed movie object
     const movieDetails = getMovieById(movie.id) || movie;
 
@@ -19,8 +22,17 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
     const releaseYear = movieDetails.year || (2020 + (movieDetails.id % 6));
     const isTopTen = movieDetails.id <= 2;
 
+    const handleCardClick = (e) => {
+        e.preventDefault();
+        router.push(`/movies/${movieDetails.id}`);
+    };
+
     return (
-        <Link href={`/movies/${movieDetails.id}`} className="block h-full group relative z-10 w-full">
+        <a 
+            href={`/movies/${movieDetails.id}`} 
+            onClick={handleCardClick}
+            className="block h-full group relative z-10 w-full cursor-pointer"
+        >
             {/* Aspect container with hover scale */}
             <div className={`relative w-full bg-neutral-900 rounded-lg overflow-hidden border border-white/5 group-hover:border-zinc-400/25 shadow-md transform transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_12px_24px_rgba(0,0,0,0.8)] z-10 ${
                 isLandscape ? "aspect-video" : "aspect-[2/3]"
@@ -90,6 +102,6 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                     <span className="text-neutral-500 font-medium">{releaseYear}</span>
                 </div>
             </div>
-        </Link>
+        </a>
     );
 }
