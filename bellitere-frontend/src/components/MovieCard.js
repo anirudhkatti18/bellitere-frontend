@@ -22,7 +22,7 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
     return (
         <Link href={`/movies/${movieDetails.id}`} className="block h-full group relative z-10 w-full">
             {/* Aspect container with hover scale */}
-            <div className={`relative w-full bg-neutral-900 rounded-md overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:z-50 ${
+            <div className={`relative w-full bg-neutral-900 rounded-lg overflow-hidden border border-white/5 group-hover:border-zinc-400/25 shadow-md transform transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_12px_24px_rgba(0,0,0,0.8)] z-10 ${
                 isLandscape ? "aspect-video" : "aspect-[2/3]"
             }`}>
                 
@@ -34,7 +34,7 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                     <img 
                         src={movieDetails.poster} 
                         alt={movieDetails.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-10"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-102 transition-transform duration-500 z-10"
                         loading="lazy"
                     />
                 ) : (
@@ -48,7 +48,7 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                                 <p className="text-[10px] sm:text-xs font-medium text-white/60 mt-1 select-none">
                                     {movieDetails.kannadaTitle}
                                 </p>
-                            )}
+                              )}
                         </div>
                     </div>
                 )}
@@ -56,8 +56,8 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                 {/* Top 10/Trending Badge */}
                 {isTopTen && (
                     <div className="absolute top-2 left-2 z-20 pointer-events-none">
-                        <div className="bg-gradient-to-r from-zinc-500/80 via-slate-300/80 to-zinc-600/80 backdrop-blur-md text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded-sm shadow-md flex items-center gap-1 border border-zinc-400/30">
-                            <svg className="w-3 h-3 stroke-black" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        <div className="bg-gradient-to-r from-zinc-500/90 via-slate-200/90 to-zinc-600/90 backdrop-blur-md text-black text-[9px] font-black px-2 py-0.5 rounded-sm shadow-md flex items-center gap-1 border border-zinc-400/30">
+                            <svg className="w-2.5 h-2.5 stroke-black" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                             TOP 10
                         </div>
                     </div>
@@ -66,25 +66,28 @@ export default function MovieCard({ movie, isLandscape = false, expiresIn }) {
                 {/* Expires In Badge */}
                 {expiresIn && (
                     <div className="absolute bottom-2 right-2 z-20 pointer-events-none">
-                        <div className="bg-red-600/90 backdrop-blur-md text-white text-[9px] font-bold px-2.5 py-1 rounded-sm shadow-md border border-white/10 tracking-wider">
+                        <div className="bg-red-600/90 backdrop-blur-md text-white text-[8px] font-bold px-2 py-0.5 rounded-sm shadow-md border border-white/10 tracking-wider">
                             ⏳ {expiresIn} LEFT
                         </div>
                     </div>
                 )}
 
                 {/* Resting State Vignette Overlay */}
-                <div className="absolute inset-0 bg-black/20 pointer-events-none group-hover:bg-transparent transition-colors duration-300 z-20" />
+                <div className="absolute inset-0 bg-black/15 pointer-events-none group-hover:bg-transparent transition-colors duration-300 z-20" />
             </div>
 
-            {/* Minimal text underneath the card */}
-            <div className="mt-3 px-1 flex flex-col gap-1">
-                <h3 className="text-sm font-semibold text-white leading-tight line-clamp-1 group-hover:text-zinc-300 transition-colors">
+            {/* Minimal text underneath the card (Tightened spacing) */}
+            <div className="mt-2 px-1 flex flex-col gap-0.5">
+                <h3 className="text-xs sm:text-sm font-semibold tracking-tight text-white/95 leading-tight line-clamp-1 group-hover:text-white transition-colors duration-200">
                     {movieDetails.title}
                 </h3>
-                <div className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-gray-400">
-                    <span className="text-zinc-300 font-bold">★ {ratingScore}</span>
-                    <span>•</span>
-                    <span>{releaseYear}</span>
+                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold text-neutral-400">
+                    <span className="flex items-center gap-0.5">
+                        <span className="text-red-500 text-[10px] sm:text-xs">★</span>
+                        <span className="text-neutral-300 font-bold">{ratingScore}</span>
+                    </span>
+                    <span className="text-neutral-600">•</span>
+                    <span className="text-neutral-500 font-medium">{releaseYear}</span>
                 </div>
             </div>
         </Link>

@@ -99,33 +99,41 @@ export default function Navbar() {
     return (
         <>
             {/* Global Navigation Bar */}
-            <nav className={`fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl z-50 rounded-2xl transition-all duration-300 ${
+            <nav className={`fixed top-4 left-1/2 -translate-x-1/2 w-[85%] max-w-4xl z-50 rounded-2xl transition-all duration-300 ${
                 isScrolled 
-                    ? "bg-black/90 border border-zinc-400/30 py-2.5 shadow-[0_15px_45px_rgba(0,0,0,0.95)]" 
-                    : "bg-[#08080c]/70 border border-zinc-500/20 py-3.5"
+                    ? "bg-black/95 border border-zinc-400/35 py-1 shadow-[0_15px_45px_rgba(0,0,0,0.95)]" 
+                    : "bg-[#08080c]/85 border border-zinc-500/25 py-2"
             } backdrop-blur-xl`}>
-                <div className="w-full px-6 md:px-12 flex justify-between items-center relative">
-                    {/* Brand Logo Link (Far Left) */}
-                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer p-0 m-0 flex items-center gap-2">
+                <div className="w-full px-4 md:px-6 flex justify-between items-center relative min-h-[44px] md:min-h-[56px]">
+                    {/* Left: Brand Logo Graphic (Far Left) */}
+                    <Link href="/" className="relative z-50 flex-shrink-0 cursor-pointer p-0 m-0 flex items-center">
                         <Image
                             src="/bellitere-frontend/Bellitere.png"
                             alt="Bellitere"
                             width={240}
                             height={80}
-                            className="object-contain w-auto h-8 md:h-11 hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
+                            className="object-contain w-auto h-[40px] md:h-[54px] hover:scale-105 transition-transform duration-300 drop-shadow-md p-0 m-0"
                             priority
                         />
-                        <span className="text-chrome font-black text-lg md:text-2xl tracking-wide uppercase">ಬೆಳ್ಳಿತೆರೆ</span>
                     </Link>
 
+                    {/* Center: Brand Title Text (Centered for visual balance) */}
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center">
+                        <Link href="/" className="cursor-pointer">
+                            <span className="text-chrome font-black text-sm md:text-lg tracking-wider uppercase whitespace-nowrap">
+                                ಬೆಳ್ಳಿತೆರೆ
+                            </span>
+                        </Link>
+                    </div>
+
                     {/* Desktop Controls (Right Aligned) */}
-                    <div className="hidden md:flex items-center gap-4">
+                    <div className="hidden md:flex items-center gap-4 relative z-50">
                         {/* Search Icon */}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-neutral-300 hover:text-white transition-colors p-2 hover:scale-110 transform border border-transparent hover:border-white/10 rounded-md cursor-pointer"
+                            className="text-neutral-300 hover:text-white transition-colors p-1.5 hover:scale-110 transform border border-transparent hover:border-white/10 rounded-md cursor-pointer"
                         >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </button>
@@ -133,14 +141,14 @@ export default function Navbar() {
                         {/* Sign In Button */}
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-chrome text-black px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-105 hover:opacity-90 cursor-pointer shadow-md glow-chrome"
+                            className="bg-chrome text-black px-6 py-2 rounded-lg text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300 transform hover:scale-105 hover:opacity-90 cursor-pointer shadow-md glow-chrome"
                         >
-                            ಸೈನ್ ಇನ್ / SIGN IN
+                            SIGN IN
                         </button>
                     </div>
 
                     {/* Mobile Controls */}
-                    <div className="flex md:hidden gap-3 items-center">
+                    <div className="flex md:hidden gap-3 items-center relative z-50">
                         {/* Search Icon */}
                         <button
                             onClick={() => setIsSearchOpen(true)}
@@ -154,7 +162,7 @@ export default function Navbar() {
                         {/* Sign In Button */}
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="bg-chrome text-black px-2.5 py-1.5 rounded-md text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer shadow-md glow-chrome"
+                            className="bg-chrome text-black px-3.5 py-1.5 rounded-md text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer shadow-md glow-chrome"
                         >
                             SIGN IN
                         </button>

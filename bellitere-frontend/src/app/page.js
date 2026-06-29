@@ -61,13 +61,13 @@ export default function Home() {
 
             {/* Split Showcase Hero Section */}
             <header className="relative w-full z-10 pt-28 pb-12">
-                <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[60vh]">
+                <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[55vh]">
                     
-                    {/* Left Column: Movie Details Pane */}
-                    <div className="md:col-span-7 flex flex-col gap-4 text-left order-last md:order-first">
+                    {/* Left Column: Movie Details Pane (Less prominent) */}
+                    <div className="md:col-span-5 flex flex-col gap-3.5 text-left order-last md:order-first">
                         {/* Rating and tags */}
-                        <div className="flex items-center gap-3 text-zinc-400 text-xs md:text-sm font-black uppercase tracking-widest">
-                            <span className="text-zinc-100 bg-white/10 px-2.5 py-0.5 rounded border border-white/10">★ {activeMovie.rating}</span>
+                        <div className="flex items-center gap-2 text-zinc-400 text-xs font-black uppercase tracking-widest">
+                            <span className="text-zinc-100 bg-white/10 px-2 py-0.5 rounded border border-white/10">★ {activeMovie.rating}</span>
                             <span>•</span>
                             <span>{activeMovie.genre}</span>
                             <span>•</span>
@@ -77,39 +77,39 @@ export default function Home() {
                         </div>
 
                         {/* Title */}
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-2xl">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl">
                             {lang === "kn" && activeMovie.kannadaTitle ? activeMovie.kannadaTitle : activeMovie.title}
                         </h1>
 
                         {/* Description */}
-                        <p className="text-sm sm:text-base text-neutral-300 font-medium leading-relaxed max-w-xl drop-shadow-lg line-clamp-4">
+                        <p className="text-xs sm:text-sm text-neutral-400 font-medium leading-relaxed max-w-md line-clamp-3">
                             {activeMovie.description}
                         </p>
 
                         {/* CTAs */}
-                        <div className="flex items-center gap-4 mt-4">
+                        <div className="flex items-center gap-3 mt-2">
                             <Link
                                 href={`/movies/${activeMovie.id}`}
-                                className="flex items-center justify-center gap-2 bg-chrome text-black px-6 py-2.5 rounded-lg font-black hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(226,232,240,0.3)] text-sm uppercase cursor-pointer"
+                                className="flex items-center justify-center gap-2 bg-chrome text-black px-5 py-2 rounded-lg font-black hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_15px_rgba(226,232,240,0.25)] text-xs uppercase cursor-pointer"
                             >
                                 {t.hero.playBtn}
                             </Link>
                             <Link
                                 href={`/movies/${activeMovie.id}`}
-                                className="flex items-center justify-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-white/15 transition-all text-sm uppercase cursor-pointer"
+                                className="flex items-center justify-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-white px-4 py-2 rounded-lg font-bold hover:bg-white/15 transition-all text-xs uppercase cursor-pointer"
                             >
                                 {t.hero.listBtn}
                             </Link>
                         </div>
 
                         {/* Slide Indicators */}
-                        <div className="flex gap-2.5 mt-6">
+                        <div className="flex gap-2.5 mt-4">
                             {heroMovies.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentSlide(index)}
-                                    className={`w-2 h-2 rotate-45 transition-all duration-300 ${
-                                        index === currentSlide ? "bg-zinc-300 scale-125" : "bg-white/20 hover:bg-white/40"
+                                    className={`w-1.5 h-1.5 rotate-45 transition-all duration-300 ${
+                                        index === currentSlide ? "bg-zinc-300 scale-125 shadow-[0_0_8px_white]" : "bg-white/20 hover:bg-white/40"
                                     }`}
                                     aria-label={`Go to slide ${index + 1}`}
                                 />
@@ -117,17 +117,18 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Right Column: True Aspect Poster Frame (No stretch) */}
-                    <div className="md:col-span-5 flex justify-center items-center order-first md:order-last">
-                        <div className="relative aspect-[2/3] w-full max-w-[240px] sm:max-w-[280px] rounded-xl overflow-hidden border border-zinc-400/20 shadow-[0_20px_50px_rgba(0,0,0,0.85)] group/hero transition-all duration-500 hover:scale-[1.01]">
-                            {/* Poster Image */}
+                    {/* Right Column: Large Landscape Widescreen Frame (Dominant Element) */}
+                    <div className="md:col-span-7 flex justify-center items-center order-first md:order-last w-full">
+                        <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-zinc-400/20 shadow-[0_25px_60px_rgba(0,0,0,0.9)] group/hero transition-all duration-500 hover:scale-[1.02]">
+                            {/* Widescreen Landscape Poster Still */}
                             <img 
                                 src={activeMovie.poster} 
                                 alt={activeMovie.title} 
                                 className="w-full h-full object-cover z-0"
                             />
-                            {/* Glass overlay shine */}
+                            {/* Glass shine and shadow overlays */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 pointer-events-none z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-10" />
                         </div>
                     </div>
 
