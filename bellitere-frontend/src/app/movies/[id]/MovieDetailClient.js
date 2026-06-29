@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -26,8 +26,8 @@ export default function MovieDetail() {
         }
     };
 
-    const movieId = params?.id ? Number(params.id) : 1;
-    const movie = getMovieById(movieId) || getMovieById(1);
+    const movieId = params?.id ? (isNaN(params.id) ? params.id : Number(params.id)) : "kantara";
+    const movie = getMovieById(movieId) || getMovieById("kantara");
 
     // Fallback cast/actors pool if not defined in catalog
     const movieActors = movie.actors || [
@@ -38,6 +38,22 @@ export default function MovieDetail() {
     ];
 
     const movieRecommendations = getRecommendations(movie.id);
+
+    // Programmatically ensure video plays and loop muting overrides React dynamic state limits
+    useEffect(() => {
+        const video = videoRef.current;
+        if (video) {
+            video.muted = isMuted;
+            video.defaultMuted = true;
+            // Force play attempt
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Auto-play prevented or video loading: ", error);
+                });
+            }
+        }
+    }, [movie.trailerUrl, isMuted]);
 
     const handleRentClick = () => {
         setIsCheckoutOpen(true);
@@ -65,7 +81,7 @@ export default function MovieDetail() {
                     ref={videoRef}
                     autoPlay 
                     loop 
-                    muted={isMuted}
+                    muted 
                     playsInline 
                     className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
                     src={movie.trailerUrl}

@@ -7,8 +7,8 @@ import { getMovieById } from "@/lib/catalog";
 
 export default function WatchPage() {
     const params = useParams();
-    const id = params?.id ? Number(params.id) : 1;
-    const movie = getMovieById(id) || getMovieById(1);
+    const id = params?.id ? (isNaN(params.id) ? params.id : Number(params.id)) : "kantara";
+    const movie = getMovieById(id) || getMovieById("kantara");
     const [isControlsVisible, setIsControlsVisible] = useState(true);
 
     // Handle mouse movement to show/hide controls
