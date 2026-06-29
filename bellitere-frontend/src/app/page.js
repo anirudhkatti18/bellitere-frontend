@@ -154,13 +154,14 @@ export default function Home() {
                         title={t.categories.trending} 
                         items={mockCatalog.slice(0, 5)} 
                         showRank={true} 
+                        isLandscape={true}
                     />
                     
                     {/* Standard High-Density Rows */}
                     <CarouselRow title={t.categories.trailers} items={mockCatalog} isLandscape={true} />
-                    <CarouselRow title={t.categories.newReleases} items={mockCatalog.slice(5, 10)} />
-                    <CarouselRow title={t.categories.classics} items={mockCatalog.slice(1, 6)} />
-                    <CarouselRow title={t.categories.comedy} items={mockCatalog.slice(3, 8)} />
+                    <CarouselRow title={t.categories.newReleases} items={mockCatalog.slice(5, 10)} isLandscape={true} />
+                    <CarouselRow title={t.categories.classics} items={mockCatalog.slice(1, 6)} isLandscape={true} />
+                    <CarouselRow title={t.categories.comedy} items={mockCatalog.slice(3, 8)} isLandscape={true} />
                 </div>
             </main>
         </div>
@@ -168,7 +169,7 @@ export default function Home() {
 }
 
 // Custom Carousel Row Component supporting layout shifts
-function CarouselRow({ title, items, isLandscape = false, showRank = false }) {
+function CarouselRow({ title, items, isLandscape = true, showRank = false }) {
     const scrollRef = useRef(null);
 
     const scroll = (direction) => {
@@ -182,13 +183,10 @@ function CarouselRow({ title, items, isLandscape = false, showRank = false }) {
     return (
         <section className="relative w-full flex flex-col gap-3 group">
             {/* Row Title */}
-            <div className="flex justify-between items-end">
-                <div className="flex items-center gap-2">
-                    <div className="w-1 h-5 bg-gradient-to-b from-zinc-400 via-slate-200 to-zinc-500 glow-chrome" />
-                    <h2 className="text-base md:text-xl font-bold tracking-tight text-white/95 uppercase">
-                        {title}
-                    </h2>
-                </div>
+            <div className="flex justify-between items-end mb-1">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white uppercase">
+                    {title}
+                </h2>
             </div>
 
             {/* Carousel Navigation Buttons */}
@@ -216,7 +214,11 @@ function CarouselRow({ title, items, isLandscape = false, showRank = false }) {
                         return (
                             <div 
                                 key={`rank-${title}-${movie.id}`} 
-                                className="shrink-0 flex items-center relative pl-8 select-none w-[170px] sm:w-[210px] md:w-[270px] lg:w-[310px]"
+                                className={`shrink-0 flex items-center relative pl-8 select-none ${
+                                    isLandscape 
+                                        ? "w-[240px] sm:w-[290px] md:w-[360px] lg:w-[420px]" 
+                                        : "w-[170px] sm:w-[210px] md:w-[270px] lg:w-[310px]"
+                                }`}
                                 style={{ scrollSnapAlign: "start" }}
                             >
                                 {/* Giant stylized translucent watermark rank number */}
@@ -224,8 +226,12 @@ function CarouselRow({ title, items, isLandscape = false, showRank = false }) {
                                     {index + 1}
                                 </div>
                                 {/* Poster card overlapping on top of the number's right side */}
-                                <div className="w-[110px] sm:w-[140px] md:w-[185px] lg:w-[220px] ml-auto relative z-10">
-                                    <MovieCard movie={movie} />
+                                <div className={`ml-auto relative z-10 ${
+                                    isLandscape 
+                                        ? "w-[180px] sm:w-[220px] md:w-[270px] lg:w-[320px]" 
+                                        : "w-[110px] sm:w-[140px] md:w-[185px] lg:w-[220px]"
+                                }`}>
+                                    <MovieCard movie={movie} isLandscape={isLandscape} />
                                 </div>
                             </div>
                         );
