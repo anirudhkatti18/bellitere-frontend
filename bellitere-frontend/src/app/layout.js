@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
     title: "ಬೆಳ್ಳಿತ್ತೆರೆ | Bellitere - Premium Kannada Cinema",
@@ -13,13 +14,15 @@ export default function RootLayout({ children }) {
     return (
         <html lang="kn">
             <body className="bg-[#08080c] text-white font-sans antialiased flex flex-col min-h-screen">
-                <LanguageProvider>
-                    <Navbar />
-                    <div className="flex-grow">
-                        {children}
-                    </div>
-                    <Footer />
-                </LanguageProvider>
+                <AuthProvider>
+                    <LanguageProvider>
+                        <Navbar />
+                        <div className="flex-grow">
+                            {children}
+                        </div>
+                        <Footer />
+                    </LanguageProvider>
+                </AuthProvider>
             </body>
         </html>
     );
